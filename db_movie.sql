@@ -1,6 +1,8 @@
-﻿--create database db_movie 
+﻿create database db_movie 
 
---use db_movie
+use db_movie
+
+
 
 -- Bảng quản lý loại nhân viên (vị trí làm việc)
 CREATE TABLE EmployeeType (
@@ -74,7 +76,31 @@ CREATE TABLE Invoice (
 	ticket_id INT FOREIGN KEY REFERENCES Ticket(ticket_id) -- Liên kết với bảng vé
 );
 
+-- bảng Loại ghế
+CREATE TABLE SeatType (
+    seat_type_id INT PRIMARY KEY IDENTITY(1,1),
+    type_name VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
 
+-- bảng Ghế
+CREATE TABLE Seat (
+    seat_id INT PRIMARY KEY IDENTITY(1,1),
+    showtime_id INT,
+    seat_number VARCHAR(10) NOT NULL,
+    seat_type_id INT,
+    status NVARCHAR(20) CHECK (status IN ('Còn chỗ', 'Hết chỗ')) NOT NULL,
+    FOREIGN KEY (showtime_id) REFERENCES Showtime(showtime_id),
+    FOREIGN KEY (seat_type_id) REFERENCES SeatType(seat_type_id)
+);
+
+-- bảng Trạng thái phim
+CREATE TABLE MovieStatus (
+    status_id INT PRIMARY KEY IDENTITY(1,1),
+    movie_id INT,
+   status NVARCHAR(20) CHECK (status IN ('Đang chiếu', 'Không chiếu')) NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES Movie(movie_id)
+);
 
 INSERT INTO EmployeeType (position) VALUES 
 (N'Quản lý'),
@@ -124,4 +150,4 @@ ALTER TABLE Employee
 DROP COLUMN salary;
 
 
---drop database db_movie
+drop database db_movie
