@@ -4,27 +4,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import service.backGround_Color;
 import service.changeColor;
+import service.clock;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 
-public class main_nv extends JFrame {
+public class main_nv extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, head, menu;
@@ -32,16 +33,14 @@ public class main_nv extends JFrame {
 	private JPanel btnPhim, btnSuatChieu;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JTabbedPane tabbedPane;
-	private listPhim_DangChieu listPhim_DangChieu;
-	private JScrollPane scroll;
-	private listAllPhim listAllPhim;
 	private JLabel lblNewLabel_2;
 	private JLabel logo;
 	private JLabel user;
 	private JLabel lbl_clock;
 	private JPanel pn_clock;
-
+	private JPanel frmsuatChieu;
+	private JPanel deskPane;
+	private Timer timer;
 	/**
 	 * Launch the application.
 	 */
@@ -101,15 +100,17 @@ public class main_nv extends JFrame {
 		btnPhim.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				switchPanel(new PhimDangChieu());
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
 			}
 		});
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
@@ -120,7 +121,10 @@ public class main_nv extends JFrame {
 		btnSuatChieu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				frmsuatChieu = new frmsuatChieu();
+				switchPanel(frmsuatChieu);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -161,9 +165,7 @@ public class main_nv extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		btnSuatChieu.add(lblNewLabel_1);
 		pn_clock.setLayout(new BorderLayout(0, 0));
-		
-		
-		
+
 		lbl_clock = new JLabel("16 : 00 PM 24/12/2024");
 		lbl_clock.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_clock.setForeground(Color.WHITE);
@@ -174,19 +176,24 @@ public class main_nv extends JFrame {
 		contentPane.add(form, BorderLayout.CENTER);
 		form.setLayout(new BorderLayout(0, 0));
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBackground(new Color(255, 255, 255));
-		form.add(tabbedPane);
+		deskPane = new PhimDangChieu();	
+		form.add(deskPane);
 		
-		listPhim_DangChieu = new listPhim_DangChieu();
-		scroll = new JScrollPane(listPhim_DangChieu);
-		scroll.setBorder(null);
-		tabbedPane.add("Phim Đang Chiếu",scroll);
-		
-		listAllPhim = new listAllPhim();
-		scroll = new JScrollPane(listAllPhim);
-		scroll.setBorder(null);
-		tabbedPane.add("Tất Cả Phim",scroll);
+		timer = new Timer(0, this);
+        timer.start();
+	}
+	
+    private void switchPanel(JPanel panel) {
+    	form.remove(deskPane);
+        deskPane = panel;
+        form.add(deskPane);
+        form.revalidate();
+        form.repaint();
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		lbl_clock.setText(clock.updateClock());
 	}
 
 }
