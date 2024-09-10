@@ -7,12 +7,14 @@ public class Movie {
 	private int duration;
 	private String releaseDate;
 	private String director;
+	private int statusId;
 
 	public Movie() {
 
 	}
 
-	public Movie(int movieId, String title, String genre, int duration, String releaseDate, String director) {
+	public Movie(int movieId, String title, String genre, int duration, String releaseDate, String director,
+			int statusId) {
 		super();
 		this.movieId = movieId;
 		this.title = title;
@@ -20,6 +22,7 @@ public class Movie {
 		this.duration = duration;
 		this.releaseDate = releaseDate;
 		this.director = director;
+		this.statusId = statusId;
 	}
 
 	public int getMovieId() {
@@ -70,10 +73,20 @@ public class Movie {
 		this.director = director;
 	}
 
+	public int getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", title=" + title + ", genre=" + genre + ", duration=" + duration
-				+ ", releaseDate=" + releaseDate + ", director=" + director + "]";
+				+ ", releaseDate=" + releaseDate + ", director=" + director + ", statusId=" + statusId + "]";
 	}
+
+	
 
 }
