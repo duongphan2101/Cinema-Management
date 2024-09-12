@@ -7,7 +7,13 @@ public class Theater {
 	private int capacity;
 
 	public Theater() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	public Theater(int theaterId) {
+		super();
+		this.theaterId = theaterId;
 	}
 
 	public Theater(int theaterId, String name, String location, int capacity) {

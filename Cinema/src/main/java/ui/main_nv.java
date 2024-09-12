@@ -61,7 +61,7 @@ public class main_nv extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public main_nv() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);

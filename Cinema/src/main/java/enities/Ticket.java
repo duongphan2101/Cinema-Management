@@ -2,22 +2,28 @@ package enities;
 
 public class Ticket {
 	private int ticketId;
-	private int showtimeId;
+	private Showtime showtime;
 	private String seatNumber;
 	private float price;
 	private String purchaseTime;
-
+	
 	public Ticket() {
-
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Ticket(int ticketId, int showtimeId, String seatNumber, float price, String purchaseTime) {
+	public Ticket(int ticketId, Showtime showtime, String seatNumber, float price, String purchaseTime) {
 		super();
 		this.ticketId = ticketId;
-		this.showtimeId = showtimeId;
+		this.showtime = showtime;
 		this.seatNumber = seatNumber;
 		this.price = price;
 		this.purchaseTime = purchaseTime;
+	}
+
+	public Ticket(int ticketId) {
+		super();
+		this.ticketId = ticketId;
 	}
 
 	public int getTicketId() {
@@ -28,12 +34,12 @@ public class Ticket {
 		this.ticketId = ticketId;
 	}
 
-	public int getShowtimeId() {
-		return showtimeId;
+	public Showtime getShowtime() {
+		return showtime;
 	}
 
-	public void setShowtimeId(int showtimeId) {
-		this.showtimeId = showtimeId;
+	public void setShowtime(Showtime showtime) {
+		this.showtime = showtime;
 	}
 
 	public String getSeatNumber() {
@@ -62,8 +68,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", showtimeId=" + showtimeId + ", seatNumber=" + seatNumber + ", price="
+		return "Ticket [ticketId=" + ticketId + ", showtime=" + showtime + ", seatNumber=" + seatNumber + ", price="
 				+ price + ", purchaseTime=" + purchaseTime + "]";
 	}
-
 }

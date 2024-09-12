@@ -3,7 +3,7 @@ package enities;
 public class Invoice {
 	private int invoiceId;
 	private String customerName;
-	private int customerId;
+	private Customer customer;
 	private float totalAmount;
 	private String purchaseTime;
 	private int employeeId;
@@ -13,16 +13,21 @@ public class Invoice {
 
 	}
 
-	public Invoice(int invoiceId, String customerName, int customerId, float totalAmount, String purchaseTime,
+	public Invoice(int invoiceId, String customerName, Customer customer, float totalAmount, String purchaseTime,
 			int employeeId, int ticketId) {
 		super();
 		this.invoiceId = invoiceId;
 		this.customerName = customerName;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.totalAmount = totalAmount;
 		this.purchaseTime = purchaseTime;
 		this.employeeId = employeeId;
 		this.ticketId = ticketId;
+	}
+
+	public Invoice(int invoiceId) {
+		super();
+		this.invoiceId = invoiceId;
 	}
 
 	public int getInvoiceId() {
@@ -41,12 +46,12 @@ public class Invoice {
 		this.customerName = customerName;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public float getTotalAmount() {
@@ -83,9 +88,8 @@ public class Invoice {
 
 	@Override
 	public String toString() {
-		return "Invoice [invoiceId=" + invoiceId + ", customerName=" + customerName + ", customerId=" + customerId
+		return "Invoice [invoiceId=" + invoiceId + ", customerName=" + customerName + ", customer=" + customer
 				+ ", totalAmount=" + totalAmount + ", purchaseTime=" + purchaseTime + ", employeeId=" + employeeId
 				+ ", ticketId=" + ticketId + "]";
 	}
-
 }

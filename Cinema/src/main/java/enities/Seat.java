@@ -4,20 +4,25 @@ public class Seat {
 	private int seatId;
 	private int showtimeId;
 	private String seatNumber;
-	private int seatTypeId;
-	private String status;
-
+	private SeatStatus seatStatus;
+	
 	public Seat() {
-
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Seat(int seatId, int showtimeId, String seatNumber, int seatTypeId, String status) {
+	public Seat(int seatId) {
+		super();
+		this.seatId = seatId;
+	}
+
+
+	public Seat(int seatId, int showtimeId, String seatNumber, SeatStatus seatStatus) {
 		super();
 		this.seatId = seatId;
 		this.showtimeId = showtimeId;
 		this.seatNumber = seatNumber;
-		this.seatTypeId = seatTypeId;
-		this.status = status;
+		this.seatStatus = seatStatus;
 	}
 
 	public int getSeatId() {
@@ -44,26 +49,17 @@ public class Seat {
 		this.seatNumber = seatNumber;
 	}
 
-	public int getSeatTypeId() {
-		return seatTypeId;
+	public SeatStatus getSeatStatus() {
+		return seatStatus;
 	}
 
-	public void setSeatTypeId(int seatTypeId) {
-		this.seatTypeId = seatTypeId;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSeatStatus(SeatStatus seatStatus) {
+		this.seatStatus = seatStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "Seat [seatId=" + seatId + ", showtimeId=" + showtimeId + ", seatNumber=" + seatNumber + ", seatTypeId="
-				+ seatTypeId + ", status=" + status + "]";
-	}
-
+		return "Seat [seatId=" + seatId + ", showtimeId=" + showtimeId + ", seatNumber=" + seatNumber + ", seatStatus="
+				+ seatStatus + "]";
+	}	
 }
