@@ -42,7 +42,7 @@
 	<classpathentry kind="lib" path="src/main/java/lib/flatlaf-3.2.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/flatlaf-extras-3.2.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lemin/Downloads/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lemin/Downloads/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="src/main/java/lib/activation.jar"/>
+	<classpathentry kind="lib" path="src/main/java/lib/TimingFramework-0.55.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

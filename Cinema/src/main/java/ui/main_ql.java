@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-
 import service.backGround_Color;
 import service.clock;
 
@@ -87,7 +86,7 @@ public class main_ql extends JFrame implements ActionListener {
 		head.setLayout(new BorderLayout(0, 0));
 		
 		link = new JPanel();
-		link.setBorder(new EmptyBorder(0, 30, 0, 0));
+		link.setBorder(null);
 		head.add(link, BorderLayout.CENTER);
 		link.setPreferredSize(new Dimension(1200 - 250, 80));
 		link.setBackground(backGround_Color.bg_color_deep);
@@ -97,6 +96,7 @@ public class main_ql extends JFrame implements ActionListener {
 		lblLink.setForeground(new Color(255, 255, 255));
 		lblLink.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		link.add(lblLink);
+		lblLink.setBorder(new EmptyBorder(0, 30, 0, 0));
 		
 		
 		
@@ -242,5 +242,13 @@ public class main_ql extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		lbl_clock.setText(clock.updateClock());
 	}
+	
+//    private void switchPanel(JPanel panel) {
+//    	form.remove(deskPane);
+//        deskPane = panel;
+//        form.add(deskPane);
+//        form.revalidate();
+//        form.repaint();
+//    }
 
 }
