@@ -41,6 +41,7 @@ public class main_nv extends JFrame implements ActionListener {
 	private JPanel frmsuatChieu;
 	private JPanel deskPane;
 	private Timer timer;
+
 	/**
 	 * Launch the application.
 	 */
@@ -69,33 +70,33 @@ public class main_nv extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setMinimumSize(new Dimension(700, 500));
-		
+
 		head = new JPanel();
 		head.setBorder(new EmptyBorder(0, 50, 0, 40));
 		head.setBackground(backGround_Color.bg_color);
 		head.setPreferredSize(new Dimension(getWidth(), 100));
 		contentPane.add(head, BorderLayout.NORTH);
 		head.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_2 = new JLabel("CINEMA");
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 80));
 		head.add(lblNewLabel_2, BorderLayout.WEST);
-		
+
 		logo = new JLabel("");
 		logo.setIcon(new ImageIcon(main_nv.class.getResource("/icon/icons8-star-100.png")));
 		head.add(logo, BorderLayout.CENTER);
-		
+
 		user = new JLabel("");
 		user.setIcon(new ImageIcon(main_nv.class.getResource("/icon/user-50.png")));
 		head.add(user, BorderLayout.EAST);
-		
+
 		menu = new JPanel();
 		menu.setBackground(backGround_Color.bg_color);
 		menu.setPreferredSize(new Dimension(250, getHeight()));
 		contentPane.add(menu, BorderLayout.WEST);
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
-		
+
 		btnPhim = new JPanel();
 		btnPhim.addMouseListener(new MouseAdapter() {
 			@Override
@@ -104,10 +105,12 @@ public class main_nv extends JFrame implements ActionListener {
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
@@ -116,7 +119,7 @@ public class main_nv extends JFrame implements ActionListener {
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
 		btnPhim.setMaximumSize(btnPhim.getPreferredSize());
 		btnPhim.setBackground(backGround_Color.bg_color_deep);
-		
+
 		btnSuatChieu = new JPanel();
 		btnSuatChieu.addMouseListener(new MouseAdapter() {
 			@Override
@@ -126,10 +129,12 @@ public class main_nv extends JFrame implements ActionListener {
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
@@ -138,17 +143,17 @@ public class main_nv extends JFrame implements ActionListener {
 		btnSuatChieu.setPreferredSize(new Dimension(getWidth(), 100));
 		btnSuatChieu.setMaximumSize(btnPhim.getPreferredSize());
 		btnSuatChieu.setBackground(backGround_Color.bg_color);
-		
+
 		menu.add(Box.createVerticalStrut(50));
 		menu.add(btnPhim);
 		btnPhim.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel = new JLabel("Phim");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
 		btnPhim.add(lblNewLabel, BorderLayout.CENTER);
-		
+
 		pn_clock = new JPanel();
 		pn_clock.setBorder(new EmptyBorder(0, 0, 10, 0));
 		pn_clock.setPreferredSize(new Dimension(getWidth(), getHeight()));
@@ -158,7 +163,7 @@ public class main_nv extends JFrame implements ActionListener {
 		menu.add(btnSuatChieu);
 		menu.add(pn_clock);
 		btnSuatChieu.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_1 = new JLabel("Suất Chiếu");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 32));
@@ -171,25 +176,25 @@ public class main_nv extends JFrame implements ActionListener {
 		lbl_clock.setForeground(Color.WHITE);
 		lbl_clock.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pn_clock.add(lbl_clock, BorderLayout.SOUTH);
-		
+
 		form = new JPanel();
 		contentPane.add(form, BorderLayout.CENTER);
 		form.setLayout(new BorderLayout(0, 0));
-		
-		deskPane = new PhimDangChieu();	
+
+		deskPane = new PhimDangChieu();
 		form.add(deskPane);
-		
+
 		timer = new Timer(0, this);
-        timer.start();
+		timer.start();
 	}
-	
-    private void switchPanel(JPanel panel) {
-    	form.remove(deskPane);
-        deskPane = panel;
-        form.add(deskPane);
-        form.revalidate();
-        form.repaint();
-    }
+
+	private void switchPanel(JPanel panel) {
+		form.remove(deskPane);
+		deskPane = panel;
+		form.add(deskPane);
+		form.revalidate();
+		form.repaint();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

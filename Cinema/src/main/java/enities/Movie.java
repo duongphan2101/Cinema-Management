@@ -15,8 +15,8 @@ public class Movie {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Movie(int movieId, String title, String genre, int duration, String releaseDate, String director,
-			MovieStatus movieStatus, String img) {
+	public Movie(int movieId, String title, String genre, int duration, String releaseDate, String director,MovieStatus movieStatus, String img) {
+
 		super();
 		this.movieId = movieId;
 		this.title = title;
@@ -97,10 +97,10 @@ public class Movie {
 		this.img = img;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Movie [movieId=" + movieId + ", title=" + title + ", genre=" + genre + ", duration=" + duration
-				+ ", releaseDate=" + releaseDate + ", director=" + director + ", movieStatus=" + movieStatus + ", img="
-				+ img + "]";
+		return "Movie [movieId=" + movieId + ", title=" + title + ", genre=" + genre + ", duration=" + duration+ ", releaseDate=" + releaseDate + ", director=" + director +"]";
 	}
+
 }

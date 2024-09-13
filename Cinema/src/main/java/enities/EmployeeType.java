@@ -7,6 +7,9 @@ public class EmployeeType {
 	public EmployeeType() {
 
 	}
+	public EmployeeType(int typeId) {
+		this.typeId = typeId;
+	}
 
 	public EmployeeType(int typeId, String position) {
 		super();
