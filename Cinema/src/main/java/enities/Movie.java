@@ -7,16 +7,25 @@ public class Movie {
 	private int duration;
 	private String releaseDate;
 	private String director;
+<<<<<<< HEAD
 	private MovieStatus movieStatus;
 	private String img;
 	
+=======
+	private int statusId;
+
+>>>>>>> 619344006679bd7bb2522fa8044d0c588bc7ca4a
 	public Movie() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Movie(int movieId, String title, String genre, int duration, String releaseDate, String director,
+<<<<<<< HEAD
 			MovieStatus movieStatus, String img) {
+=======
+			int statusId) {
+>>>>>>> 619344006679bd7bb2522fa8044d0c588bc7ca4a
 		super();
 		this.movieId = movieId;
 		this.title = title;
@@ -24,6 +33,7 @@ public class Movie {
 		this.duration = duration;
 		this.releaseDate = releaseDate;
 		this.director = director;
+<<<<<<< HEAD
 		this.movieStatus = movieStatus;
 		this.img = img;
 	}
@@ -31,6 +41,9 @@ public class Movie {
 	public Movie(int movieId) {
 		super();
 		this.movieId = movieId;
+=======
+		this.statusId = statusId;
+>>>>>>> 619344006679bd7bb2522fa8044d0c588bc7ca4a
 	}
 
 	public int getMovieId() {
@@ -81,6 +94,7 @@ public class Movie {
 		this.director = director;
 	}
 
+<<<<<<< HEAD
 	public MovieStatus getMovieStatus() {
 		return movieStatus;
 	}
@@ -95,12 +109,28 @@ public class Movie {
 
 	public void setImg(String img) {
 		this.img = img;
+=======
+	public int getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+>>>>>>> 619344006679bd7bb2522fa8044d0c588bc7ca4a
 	}
 
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", title=" + title + ", genre=" + genre + ", duration=" + duration
+<<<<<<< HEAD
 				+ ", releaseDate=" + releaseDate + ", director=" + director + ", movieStatus=" + movieStatus + ", img="
 				+ img + "]";
 	}
+=======
+				+ ", releaseDate=" + releaseDate + ", director=" + director + ", statusId=" + statusId + "]";
+	}
+
+	
+
+>>>>>>> 619344006679bd7bb2522fa8044d0c588bc7ca4a
 }
