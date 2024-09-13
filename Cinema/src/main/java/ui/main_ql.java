@@ -1,8 +1,8 @@
 package ui;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue;<<<<<<<HEAD
 
-import javax.management.loading.PrivateClassLoader;
+import javax.management.loading.PrivateClassLoader;=======>>>>>>>1e7970 ee51e737e27b6b77b0fadda01965c13212
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -10,11 +10,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
+import javax.swing.Timer;<<<<<<<HEAD
+import service.backGround_Color;
+import service.changeColor;
+import service.clock;=======>>>>>>>1e7970 ee51e737e27b6b77b0fadda01965c13212
+
+import service.Tag_Link;
 import service.backGround_Color;
 import service.changeColor;
 import service.clock;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -23,14 +27,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Color;
+import java.awt.Color;<<<<<<<HEAD
 import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeEvent;=======>>>>>>>1e7970 ee51e737e27b6b77b0fadda01965c13212
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class main_ql extends JFrame implements ActionListener {
 
@@ -55,12 +60,14 @@ public class main_ql extends JFrame implements ActionListener {
 	private JPanel white_space;
 	private JPanel Right;
 	private JLabel lblLink;
-	private JPanel content;
+	private JPanel content;<<<<<<<HEAD
 	private JTabbedPane tabbedPane;
 	private JPanel PhimDangChieu;
 	private JPanel All_Phim;
 	private JPanel form;
 	private JPanel deskPane;
+
+	private JPanel frm_Phim;
 
 	/**
 	 * Launch the application.
@@ -165,7 +172,19 @@ public class main_ql extends JFrame implements ActionListener {
 
 		btnLogo.add(logo);
 
+		frm_Phim = new frm_Phim();
+		content.add(frm_Phim, BorderLayout.CENTER);
+
 		btnPhim = new JPanel();
+		btnPhim.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanel(new frm_Phim());
+				lblLink.setText(Tag_Link.getTag_link());
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+			}
+		});
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
 		btnPhim.setMaximumSize(btnPhim.getPreferredSize());
 		btnPhim.setBackground(backGround_Color.bg_color_deep);
@@ -181,7 +200,7 @@ public class main_ql extends JFrame implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				switchPanel(content);			
+				switchPanel(content);
 				lblLink.setText("Quản Lý/Phim Đang Chiếu");
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
@@ -201,6 +220,15 @@ public class main_ql extends JFrame implements ActionListener {
 		btnPhim.add(lblNewLabel, BorderLayout.CENTER);
 
 		btnSuatChieu = new JPanel();
+		btnSuatChieu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblLink.setText("Quản Lý/Suất Chiếu");
+				switchPanel(new frm_SuatChieu(true));
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
+			}
+		});
 		btnSuatChieu.setPreferredSize(new Dimension(1200, 100));
 		btnSuatChieu.setMaximumSize(new Dimension(1200, 100));
 		btnSuatChieu.setBackground(backGround_Color.bg_color);
@@ -230,8 +258,8 @@ public class main_ql extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				// Tạo một instance của frmAddEmployee
 				frmEmployee frmAddEmployee = new frmEmployee();
-				switchPanel(frmAddEmployee);			
-			    lblLink.setText("Quản Lý/Nhân Sự/Nhân Viên");
+				switchPanel(frmAddEmployee);
+				lblLink.setText("Quản Lý/Nhân Sự/Nhân Viên");
 
 				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
@@ -282,15 +310,18 @@ public class main_ql extends JFrame implements ActionListener {
 		lbl_clock.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lbl_clock.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lbl_clock, BorderLayout.SOUTH);
- 
+
 		form = new JPanel();
 		form.setLayout(new BorderLayout());
 		Right.add(form, BorderLayout.CENTER);
-		
-		deskPane = content; 
+
+		deskPane = content;
 		form.add(deskPane);
-		
+
 		timer = new Timer(0, this);
+
+		timer.start();
+
 		timer.start();
 
 	}
@@ -306,6 +337,14 @@ public class main_ql extends JFrame implements ActionListener {
 		form.add(deskPane);
 		form.revalidate();
 		form.repaint();
+	}
+
+	private void switchPanel(JPanel panel) {
+		content.remove(frm_Phim);
+		frm_Phim = panel;
+		content.add(frm_Phim, BorderLayout.CENTER);
+		content.revalidate();
+		content.repaint();
 	}
 
 }

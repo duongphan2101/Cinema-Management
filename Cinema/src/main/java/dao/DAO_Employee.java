@@ -16,7 +16,7 @@ public class DAO_Employee {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    // Lấy danh sách tất cả nhân viên
+    
     public List<Employee> getAllEmployees() {
         List<Employee> list = new ArrayList<Employee>();
         String query = "SELECT * FROM Employee";
@@ -49,7 +49,7 @@ public class DAO_Employee {
         return list;
     }
 
-   
+    
     public Employee getEmployeeByID(int id) {
         String query = "SELECT * FROM Employee WHERE employee_id = ?";
         Employee employee = null;
@@ -83,18 +83,19 @@ public class DAO_Employee {
         return employee;
     }
 
-
+   
     public void addEmployee(Employee employee) {
-        String query = "INSERT INTO Employee (name, employee_type_id, birth_date, phone, email) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Employee (employee_id, name, employee_type_id, birth_date, phone, email) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             new DBConnect();
             conn = DBConnect.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setString(1, employee.getName());
-            ps.setInt(2, employee.getEmployeeType().getTypeId());  
-            ps.setString(3, employee.getBirthDate());
-            ps.setString(4, employee.getPhone());
-            ps.setString(5, employee.getEmail());
+            ps.setInt(1, employee.getEmployeeId()); 
+            ps.setString(2, employee.getName());
+            ps.setInt(3, employee.getEmployeeType().getTypeId());  
+            ps.setString(4, employee.getBirthDate());
+            ps.setString(5, employee.getPhone());
+            ps.setString(6, employee.getEmail());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -114,7 +115,7 @@ public class DAO_Employee {
         }
     }
 
-
+    
     public void updateEmployee(Employee employee) {
         String query = "UPDATE Employee SET name = ?, employee_type_id = ?, birth_date = ?, phone = ?, email = ? WHERE employee_id = ?";
         try {
@@ -126,7 +127,7 @@ public class DAO_Employee {
             ps.setString(3, employee.getBirthDate());
             ps.setString(4, employee.getPhone());
             ps.setString(5, employee.getEmail());
-            ps.setInt(6, employee.getEmployeeId());
+            ps.setInt(6, employee.getEmployeeId()); 
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -153,7 +154,7 @@ public class DAO_Employee {
             new DBConnect();
             conn = DBConnect.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, employeeId);
+            ps.setInt(1, employeeId);  
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -173,9 +174,5 @@ public class DAO_Employee {
         }
     }
 
-    public static void main(String[] args) {
-        DAO_Employee dao = new DAO_Employee();
-        Employee emp = dao.getEmployeeByID(1);
-        System.out.println(emp);
-    }
+    
 }

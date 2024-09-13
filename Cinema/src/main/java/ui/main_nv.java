@@ -124,7 +124,7 @@ public class main_nv extends JFrame implements ActionListener {
 		btnSuatChieu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frmsuatChieu = new frmsuatChieu();
+				frmsuatChieu = new frm_SuatChieu(false);
 				switchPanel(frmsuatChieu);
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);

@@ -5,7 +5,12 @@ import java.awt.*;
 
 public class CinemaLogin extends JFrame {
 
-    public CinemaLogin() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CinemaLogin() {
         // Thiết lập cửa sổ chính
         setTitle("Cinema Star - Login");
         setSize(1200, 700);
