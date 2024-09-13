@@ -6,7 +6,7 @@ import java.util.Date;
 public class getDate {
 
     public static String toDateTime(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(date);
     }
 

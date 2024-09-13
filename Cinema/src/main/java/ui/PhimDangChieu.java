@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -16,9 +18,7 @@ import enities.Movie;
 import service.ScrollPaneWin11;
 
 import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-
 public class PhimDangChieu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -26,6 +26,7 @@ public class PhimDangChieu extends JPanel {
 	private JLabel lblName;
 	private JPanel panel;
 	private JLabel lblImg;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -35,7 +36,7 @@ public class PhimDangChieu extends JPanel {
 		setBackground(new Color(255, 255, 255));
 		setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new ScrollPaneWin11();
+		scrollPane = new ScrollPaneWin11();
 		add(scrollPane, BorderLayout.CENTER);
 		
 		panel = new JPanel();

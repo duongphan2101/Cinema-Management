@@ -41,6 +41,34 @@ public class DAO_Movie {
 		return list;
 	}
 	
+	public String[] getAllTitleMovieDangChieu() {
+	    List<String> list = new ArrayList<>();
+	    String query = "SELECT m.title FROM Movie m where m.status_id = 1";
+	    
+	    try {
+	        new DBConnect();
+	        conn = DBConnect.getConnection();
+	        ps = conn.prepareStatement(query);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            list.add(rs.getString(1));
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return list.toArray(new String[0]);
+	}
+	
 	public List<Movie> getAllMovieDangChieu(){
 		List<Movie> list = new ArrayList<Movie>();
 		String query = "select m.* from Movie m\r\n"
@@ -102,9 +130,7 @@ public class DAO_Movie {
 	}
 	
 	public void addMovie(Movie movie) {
-	    
 	    String query = "INSERT INTO Movie (title, genre, duration, release_date, director, status_id, Img) VALUES (?, ?, ?, ?, ?, 2, ?);";
-
 	        try {
 	            new DBConnect();
 	            conn = DBConnect.getConnection();
@@ -132,7 +158,6 @@ public class DAO_Movie {
 	                e.printStackTrace();
 	            }
 	        }
-
 	}
 	
 	public void updateMovie(Movie movie) {
@@ -197,13 +222,40 @@ public class DAO_Movie {
 	    }
 	}
 
+	public int getMovieIdByTitle(String title) {
+	    int movieId = -1;
+	    String query = "SELECT m.movie_id FROM Movie m WHERE m.title = ? ";
+	    try {
+	        new DBConnect();
+	        conn = DBConnect.getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, title);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	            movieId = rs.getInt("movie_id");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return movieId;
+	}
 
 
 	
 	public static void main(String[] args) {
 		DAO_Movie dao = new DAO_Movie();
-		Movie m = dao.getMoviebyID(1);
-		System.out.println(m);
+		int id = dao.getMovieIdByTitle("Lật Mặt 6");
+		System.out.println(id);
+		
 	}
 
 }

@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.EventQueue;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -10,20 +9,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import service.backGround_Color;
-import service.clock;
 
+import service.Tag_Link;
+import service.backGround_Color;
+import service.changeColor;
+import service.clock;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
-import java.awt.Component;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class main_ql extends JFrame implements ActionListener {
 
@@ -49,10 +48,7 @@ public class main_ql extends JFrame implements ActionListener {
 	private JPanel Right;
 	private JLabel lblLink;
 	private JPanel content;
-	private JTabbedPane tabbedPane;
-	private JPanel PhimDangChieu;
-	private JPanel All_Phim;
-
+	private JPanel frm_Phim;
 	/**
 	 * Launch the application.
 	 */
@@ -98,8 +94,6 @@ public class main_ql extends JFrame implements ActionListener {
 		link.add(lblLink);
 		lblLink.setBorder(new EmptyBorder(0, 30, 0, 0));
 		
-		
-		
 		white_space = new JPanel();
 		white_space.setBackground(new Color(255, 255, 255));
 		head.add(white_space, BorderLayout.NORTH);
@@ -118,28 +112,8 @@ public class main_ql extends JFrame implements ActionListener {
 		Right.add(content, BorderLayout.CENTER);
 		content.setLayout(new BorderLayout(0, 0));
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		content.add(tabbedPane);
-			
-		PhimDangChieu = new PhimDangChieu();
-		tabbedPane.addTab("Phim Đang Chiếu", null, PhimDangChieu, null);
 		
-		All_Phim = new AllPhim();
-		tabbedPane.addTab("Tất Cả Phim", null, All_Phim, null);
-		
-		tabbedPane.addChangeListener(new ChangeListener() {
-		    @Override
-		    public void stateChanged(ChangeEvent e) {
-		        Component selectedComponent = tabbedPane.getSelectedComponent();
-		        
-		        if (selectedComponent == PhimDangChieu) {
-		            lblLink.setText("Quản Lý/Phim Đang Chiếu");
-		        } else if (selectedComponent == All_Phim) {
-		            lblLink.setText("Quản Lý/Tất Cả Phim");
-		        }
-		    }
-		});
-		
+
 		Menu.setPreferredSize(new Dimension(250, getHeight()));
 		Menu.setBackground(backGround_Color.bg_color);
 		Menu.setLayout(new BorderLayout());
@@ -158,7 +132,19 @@ public class main_ql extends JFrame implements ActionListener {
 		
 		btnLogo.add(logo);
 		
+		frm_Phim = new frm_Phim();
+		content.add(frm_Phim, BorderLayout.CENTER);
+		
 		btnPhim = new JPanel();
+		btnPhim.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanel(new frm_Phim());
+				lblLink.setText(Tag_Link.getTag_link());
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+			}
+		});
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
 		btnPhim.setMaximumSize(btnPhim.getPreferredSize());
 		btnPhim.setBackground(backGround_Color.bg_color_deep);
@@ -173,6 +159,15 @@ public class main_ql extends JFrame implements ActionListener {
 		btnPhim.add(lblNewLabel, BorderLayout.CENTER);
 		
 		btnSuatChieu = new JPanel();
+		btnSuatChieu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblLink.setText("Quản Lý/Suất Chiếu");
+				switchPanel(new frm_SuatChieu(true));
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
+			}
+		});
 		btnSuatChieu.setPreferredSize(new Dimension(1200, 100));
 		btnSuatChieu.setMaximumSize(new Dimension(1200, 100));
 		btnSuatChieu.setBackground(backGround_Color.bg_color);
@@ -235,6 +230,8 @@ public class main_ql extends JFrame implements ActionListener {
 		
 		timer = new Timer(0, this);
         timer.start();
+        
+
 		
 	}
 	
@@ -243,12 +240,12 @@ public class main_ql extends JFrame implements ActionListener {
 		lbl_clock.setText(clock.updateClock());
 	}
 	
-//    private void switchPanel(JPanel panel) {
-//    	form.remove(deskPane);
-//        deskPane = panel;
-//        form.add(deskPane);
-//        form.revalidate();
-//        form.repaint();
-//    }
+    private void switchPanel(JPanel panel) {
+        content.remove(frm_Phim);
+        frm_Phim = panel;
+        content.add(frm_Phim, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }
 
 }
