@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.EventQueue;
 
+import javax.management.loading.PrivateClassLoader;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import service.backGround_Color;
+import service.changeColor;
 import service.clock;
 
 import java.awt.BorderLayout;
@@ -18,8 +20,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.border.EmptyBorder;
@@ -52,6 +59,8 @@ public class main_ql extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private JPanel PhimDangChieu;
 	private JPanel All_Phim;
+	private JPanel form;
+	private JPanel deskPane;
 
 	/**
 	 * Launch the application.
@@ -81,132 +90,173 @@ public class main_ql extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.setBackground(backGround_Color.bg_color);
-        head = new JPanel();
+		head = new JPanel();
 		head.setPreferredSize(new Dimension(1200 - 250, 100));
 		head.setLayout(new BorderLayout(0, 0));
-		
+
 		link = new JPanel();
 		link.setBorder(null);
 		head.add(link, BorderLayout.CENTER);
 		link.setPreferredSize(new Dimension(1200 - 250, 80));
 		link.setBackground(backGround_Color.bg_color_deep);
 		link.setLayout(new BorderLayout(0, 0));
-		
+
 		lblLink = new JLabel("Quản Lý/Phim Đang Chiếu");
 		lblLink.setForeground(new Color(255, 255, 255));
 		lblLink.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		link.add(lblLink);
 		lblLink.setBorder(new EmptyBorder(0, 30, 0, 0));
-		
-		
-		
+
 		white_space = new JPanel();
 		white_space.setBackground(new Color(255, 255, 255));
 		head.add(white_space, BorderLayout.NORTH);
 		white_space.setPreferredSize(new Dimension(1200 - 250, 20));
-		
+
 		Right = new JPanel();
 		Menu = new JPanel();
-		
+
 		contentPane.add(Menu);
 		contentPane.add(Right);
-		
+
 		Right.setLayout(new BorderLayout());
 		Right.add(head, BorderLayout.NORTH);
-		
+
 		content = new JPanel();
 		Right.add(content, BorderLayout.CENTER);
 		content.setLayout(new BorderLayout(0, 0));
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		content.add(tabbedPane);
-			
+
 		PhimDangChieu = new PhimDangChieu();
 		tabbedPane.addTab("Phim Đang Chiếu", null, PhimDangChieu, null);
-		
+
 		All_Phim = new AllPhim();
 		tabbedPane.addTab("Tất Cả Phim", null, All_Phim, null);
-		
+
 		tabbedPane.addChangeListener(new ChangeListener() {
-		    @Override
-		    public void stateChanged(ChangeEvent e) {
-		        Component selectedComponent = tabbedPane.getSelectedComponent();
-		        
-		        if (selectedComponent == PhimDangChieu) {
-		            lblLink.setText("Quản Lý/Phim Đang Chiếu");
-		        } else if (selectedComponent == All_Phim) {
-		            lblLink.setText("Quản Lý/Tất Cả Phim");
-		        }
-		    }
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Component selectedComponent = tabbedPane.getSelectedComponent();
+
+				if (selectedComponent == PhimDangChieu) {
+					lblLink.setText("Quản Lý/Phim Đang Chiếu");
+				} else if (selectedComponent == All_Phim) {
+					lblLink.setText("Quản Lý/Tất Cả Phim");
+				}
+			}
 		});
-		
+
 		Menu.setPreferredSize(new Dimension(250, getHeight()));
 		Menu.setBackground(backGround_Color.bg_color);
 		Menu.setLayout(new BorderLayout());
 		Menu.setMaximumSize(new Dimension(250, this.getHeight()));
-		
+
 		btnLogo = new JPanel();
 		btnLogo.setPreferredSize(new Dimension(getWidth(), 100));
 		btnLogo.setMaximumSize(btnLogo.getPreferredSize());
 		btnLogo.setBackground(backGround_Color.bg_color);
 		btnLogo.setLayout(new BorderLayout(0, 0));
-		
+
 		logo = new JLabel("");
 		logo.setPreferredSize(new Dimension(2500, 100));
 		logo.setIcon(new ImageIcon(main_ql.class.getResource("/icon/user-50.png")));
 		logo.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		btnLogo.add(logo);
-		
+
 		btnPhim = new JPanel();
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
 		btnPhim.setMaximumSize(btnPhim.getPreferredSize());
 		btnPhim.setBackground(backGround_Color.bg_color_deep);
-		
+
 		btnPhim.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel = new JLabel("Phim");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setIcon(new ImageIcon(main_ql.class.getResource("/icon/icons8-film-50.png")));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		btnPhim.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				switchPanel(content);			
+				lblLink.setText("Quản Lý/Phim Đang Chiếu");
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+			}
+		});
 		btnPhim.add(lblNewLabel, BorderLayout.CENTER);
-		
+
 		btnSuatChieu = new JPanel();
 		btnSuatChieu.setPreferredSize(new Dimension(1200, 100));
 		btnSuatChieu.setMaximumSize(new Dimension(1200, 100));
 		btnSuatChieu.setBackground(backGround_Color.bg_color);
-		
+
 		btnSuatChieu.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_1 = new JLabel("Suất Chiếu");
 		lblNewLabel_1.setIcon(new ImageIcon(main_ql.class.getResource("/icon/icons8-list-50.png")));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		btnSuatChieu.add(lblNewLabel_1, BorderLayout.CENTER);
-		
+
 		btnNhanSu = new JPanel();
 		btnNhanSu.setPreferredSize(new Dimension(1200, 100));
 		btnNhanSu.setMaximumSize(new Dimension(1200, 100));
 		btnNhanSu.setBackground(backGround_Color.bg_color);
-		
 		btnNhanSu.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_2 = new JLabel("Nhân Sự");
 		lblNewLabel_2.setIcon(new ImageIcon(main_ql.class.getResource("/icon/people50.png")));
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		btnNhanSu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Tạo một instance của frmAddEmployee
+				frmEmployee frmAddEmployee = new frmEmployee();
+				switchPanel(frmAddEmployee);			
+			    lblLink.setText("Quản Lý/Nhân Sự/Nhân Viên");
+
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color_deep);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
+			}
+		});
 		btnNhanSu.add(lblNewLabel_2, BorderLayout.CENTER);
-		
+
 		btnThongKe = new JPanel();
 		btnThongKe.setPreferredSize(new Dimension(1200, 100));
 		btnThongKe.setMaximumSize(new Dimension(1200, 100));
 		btnThongKe.setBackground(backGround_Color.bg_color);
-		
+
 		btnThongKe.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_3 = new JLabel("Thống Kê");
 		lblNewLabel_3.setIcon(new ImageIcon(main_ql.class.getResource("/icon/icons8-chart-50.png")));
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
@@ -226,29 +276,36 @@ public class main_ql extends JFrame implements ActionListener {
 		MenuList.add(Box.createVerticalStrut(20));
 		MenuList.add(btnThongKe);
 		Menu.add(MenuList, BorderLayout.CENTER);
-		
+
 		lbl_clock = new JLabel("New label");
 		lbl_clock.setForeground(new Color(255, 255, 255));
 		lbl_clock.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lbl_clock.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lbl_clock, BorderLayout.SOUTH);
+ 
+		form = new JPanel();
+		form.setLayout(new BorderLayout());
+		Right.add(form, BorderLayout.CENTER);
+		
+		deskPane = content; 
+		form.add(deskPane);
 		
 		timer = new Timer(0, this);
-        timer.start();
-		
+		timer.start();
+
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		lbl_clock.setText(clock.updateClock());
 	}
-	
-//    private void switchPanel(JPanel panel) {
-//    	form.remove(deskPane);
-//        deskPane = panel;
-//        form.add(deskPane);
-//        form.revalidate();
-//        form.repaint();
-//    }
+
+	private void switchPanel(JPanel panel) {
+		form.remove(deskPane);
+		deskPane = panel;
+		form.add(deskPane);
+		form.revalidate();
+		form.repaint();
+	}
 
 }

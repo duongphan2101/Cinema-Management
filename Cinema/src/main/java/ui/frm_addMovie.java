@@ -52,11 +52,12 @@ public class frm_addMovie extends JFrame {
 	private JButton btnDay;
 	private JLabel lblNewLabel_3;
 	private DateChooser dateChooser;
+
 	/**
 	 * Create the panel.
 	 */
 	public frm_addMovie() {
-		setSize(700,500);
+		setSize(700, 500);
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setType(Type.UTILITY);
@@ -67,22 +68,22 @@ public class frm_addMovie extends JFrame {
 		getContentPane().add(head, BorderLayout.NORTH);
 		head.setLayout(new BorderLayout(0, 0));
 		head.setBackground(backGround_Color.bg_color);
-		
+
 		JLabel lblNewLabel = new JLabel("Thêm Phim");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		head.add(lblNewLabel, BorderLayout.CENTER);
-		
+
 		body = new JPanel();
 		body.setBorder(new EmptyBorder(0, 30, 0, 30));
 		getContentPane().add(body, BorderLayout.CENTER);
 		body.setLayout(new BorderLayout(0, 0));
-		
+
 		pn_img = new JPanel();
 		body.add(pn_img, BorderLayout.EAST);
 		pn_img.setLayout(new BoxLayout(pn_img, BoxLayout.Y_AXIS));
-		
+
 		border_img = new JPanel();
 		border_img.setBorder(new LineBorder(new Color(0, 0, 0)));
 		border_img.setLayout(new BorderLayout());
@@ -91,7 +92,7 @@ public class frm_addMovie extends JFrame {
 		border_img.setMinimumSize(new Dimension(180, 200));
 		pn_img.add(Box.createVerticalStrut(100));
 		pn_img.add(border_img);
-		
+
 		lblImage = new JLabel();
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		border_img.add(lblImage, BorderLayout.CENTER);
@@ -104,7 +105,7 @@ public class frm_addMovie extends JFrame {
 				linkImg = i.copyImages();
 				frm_addMovie frame = new frm_addMovie();
 				frame.revalidate();
-		        frame.repaint();
+				frame.repaint();
 				setImg(linkImg);
 				linkIMG = linkImg;
 				linkImg = null;
@@ -112,7 +113,7 @@ public class frm_addMovie extends JFrame {
 		});
 		btnChonAnh.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pn_img.add(btnChonAnh);
-		
+
 		btnChonAnh.setLayout(new BorderLayout(0, 0));
 		btnChonAnh.setBackground(backGround_Color.bg_color_deep);
 		btnChonAnh.setPreferredSize(new Dimension(100, 40));
@@ -123,21 +124,12 @@ public class frm_addMovie extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		btnChonAnh.add(lblNewLabel_2, BorderLayout.CENTER);
-		
+
 		content = new JPanel();
 		body.add(content, BorderLayout.CENTER);
-		
-		String[] movieGenres = {
-	            "Khoa học viễn tưởng",
-	            "Hành động",
-	            "Lãng mạn",
-	            "Kinh dị",
-	            "Tâm lý",
-	            "Tội phạm"
-	        };
-		
-		
-		
+
+		String[] movieGenres = { "Khoa học viễn tưởng", "Hành động", "Lãng mạn", "Kinh dị", "Tâm lý", "Tội phạm" };
+
 		btnAdd = new RoundedPanel(15);
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAdd.setBounds(106, 349, 250, 40);
@@ -146,64 +138,64 @@ public class frm_addMovie extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				insertPhim(linkIMG);
-		        dispose();
+				dispose();
 			}
 		});
 		content.setLayout(null);
 		content.add(btnAdd);
 		btnAdd.setLayout(new BorderLayout(0, 0));
-		
+
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setIcon(new ImageIcon(frm_addMovie.class.getResource("/icon/icons8-plus-30.png")));
 		btnAdd.add(lblNewLabel_3, BorderLayout.CENTER);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Tên Phim");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(22, 93, 142, 20);
 		content.add(lblNewLabel_1);
-		
+
 		txtTenPhim = new JTextField();
 		txtTenPhim.setBounds(22, 123, 200, 30);
 		content.add(txtTenPhim);
 		txtTenPhim.setColumns(10);
-		
+
 		JLabel lblNewLabel_1_1 = new JLabel("Đạo Diễn");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1.setBounds(232, 93, 142, 20);
 		content.add(lblNewLabel_1_1);
-		
+
 		txtDaoDien = new JTextField();
 		txtDaoDien.setColumns(10);
 		txtDaoDien.setBounds(232, 123, 200, 30);
 		content.add(txtDaoDien);
-		
+
 		JLabel lblNewLabel_1_2 = new JLabel("Thời Lượng");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2.setBounds(22, 183, 142, 20);
 		content.add(lblNewLabel_1_2);
-		
+
 		JLabel lblNewLabel_1_1_1 = new JLabel("Ngày Phát Hành");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1_1.setBounds(232, 183, 142, 20);
 		content.add(lblNewLabel_1_1_1);
-		
+
 		txtNgay = new JTextField();
 		txtNgay.setColumns(10);
 		txtNgay.setBounds(232, 213, 169, 30);
 		content.add(txtNgay);
-		
+
 		dateChooser = new DateChooser();
 		dateChooser.setTextRefernce(txtNgay);
 		txtThoiLuong = new JTextField();
 		txtThoiLuong.setColumns(10);
 		txtThoiLuong.setBounds(22, 213, 200, 30);
 		content.add(txtThoiLuong);
-		
+
 		txtGenre = new JComboBox<>(movieGenres);
 		txtGenre.setBounds(22, 283, 410, 30);
 		content.add(txtGenre);
-		
+
 		btnDay = new JButton("...");
 		btnDay.addMouseListener(new MouseAdapter() {
 			@Override
@@ -213,20 +205,19 @@ public class frm_addMovie extends JFrame {
 		});
 		btnDay.setBounds(402, 212, 30, 30);
 		content.add(btnDay);
-		
-		
+
 	}
-	
+
 	private void setImg(String link) {
-		  try {
-		        String filePath = "src/main/java/imgs/" + link;
-		        lblImage.setIcon(new ImageIcon(filePath));
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        dispose();
-		    }
+		try {
+			String filePath = "src/main/java/imgs/" + link;
+			lblImage.setIcon(new ImageIcon(filePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+			dispose();
+		}
 	}
-	
+
 	public void insertPhim(String anh) {
 		try {
 			String ten = txtTenPhim.getText();
@@ -241,6 +232,6 @@ public class frm_addMovie extends JFrame {
 		} catch (Exception e) {
 			CustomOptionPane.showMess("Sai định dạng!");
 		}
-		
+
 	}
 }
