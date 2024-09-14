@@ -237,7 +237,8 @@ public class frm_SuatChieu extends JPanel implements MouseListener{
 			header.setBackground(Color.white);
 			header.setFont(new Font("Arial", Font.BOLD, 18));
 			dao = new DAO_ShowTime();
-			list = dao.getAllShowTime();
+			Date today = new Date();
+			list = dao.getAllShowTimebyShowDate(getDate.toDateTime(today));
 			loadTable(list);
 		}
 		

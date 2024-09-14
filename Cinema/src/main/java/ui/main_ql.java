@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.EventQueue;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,6 +24,9 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
+
+import dao.DAO_Employee;
+import enities.Employee;
 
 
 public class main_ql extends JFrame implements ActionListener {
@@ -53,6 +55,8 @@ public class main_ql extends JFrame implements ActionListener {
 	private JPanel content;
 	private JPanel frm_Phim;
 	private JLabel lblLogo;
+	private DAO_Employee daoEmp = new DAO_Employee();
+	private Employee emp;
 	/**
 	 * Launch the application.
 	 */
@@ -237,6 +241,12 @@ public class main_ql extends JFrame implements ActionListener {
 		Menu.add(btnLogo, BorderLayout.NORTH);
 		
 		lblLogo = new JLabel("");
+		lblLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(emp);
+			}
+		});
 		lblLogo.setIcon(new ImageIcon(main_ql.class.getResource("/icon/people50.png")));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		btnLogo.add(lblLogo, BorderLayout.CENTER);
@@ -244,11 +254,8 @@ public class main_ql extends JFrame implements ActionListener {
 		MenuList.setBackground(Menu.getBackground());
 		MenuList.setLayout(new BoxLayout(MenuList, BoxLayout.Y_AXIS));
 		MenuList.add(btnPhim);
-		MenuList.add(Box.createVerticalStrut(20));
 		MenuList.add(btnSuatChieu);
-		MenuList.add(Box.createVerticalStrut(20));
 		MenuList.add(btnNhanSu);
-		MenuList.add(Box.createVerticalStrut(20));
 		MenuList.add(btnThongKe);
 		Menu.add(MenuList, BorderLayout.CENTER);
 
@@ -260,6 +267,9 @@ public class main_ql extends JFrame implements ActionListener {
 
 		timer = new Timer(0, this);
         timer.start();
+        
+        daoEmp = new DAO_Employee();
+        emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
 	}
 
 	@Override

@@ -21,11 +21,11 @@ CREATE TABLE Employee (
 );
 
 -- Bảng quản lý khách hàng
-CREATE TABLE Customer (
-    customer_id INT PRIMARY KEY IDENTITY(1,1),
-    name NVARCHAR(255) NOT NULL,
-    phone NVARCHAR(20),
-);
+--CREATE TABLE Customer (
+--    customer_id INT PRIMARY KEY IDENTITY(1,1),
+--    name NVARCHAR(255) NOT NULL,
+--    phone NVARCHAR(20),
+--);
 
 CREATE TABLE MovieStatus (
     status_id INT PRIMARY KEY IDENTITY(1,1),
@@ -73,16 +73,32 @@ CREATE TABLE Ticket (
     purchase_time NVARCHAR(255) -- Thời gian mua vé dưới dạng chuỗi
 );
 
+ALTER TABLE Ticket
+ADD theater_id INT;
+ALTER TABLE Ticket
+ADD CONSTRAINT FK_Ticket_Theater
+FOREIGN KEY (theater_id) REFERENCES Theater(theater_id);
+
+
+
 -- Bảng quản lý hóa đơn
 CREATE TABLE Invoice (
     invoice_id INT PRIMARY KEY IDENTITY(1,1),
     customer_name NVARCHAR(255), -- Tên khách hàng nếu không có tài khoản
-    customer_id INT FOREIGN KEY REFERENCES Customer(customer_id), -- Liên kết với bảng khách hàng (nếu có)
+    --customer_id INT FOREIGN KEY REFERENCES Customer(customer_id), -- Liên kết với bảng khách hàng (nếu có)
     total_amount FLOAT, -- Tổng tiền thanh toán
     purchase_time NVARCHAR(19) DEFAULT CONVERT(NVARCHAR, GETDATE(), 120), -- Thời gian thanh toán
     employee_id INT FOREIGN KEY REFERENCES Employee(employee_id), -- Nhân viên thực hiện giao dịch
 	ticket_id INT FOREIGN KEY REFERENCES Ticket(ticket_id) -- Liên kết với bảng vé
 );
+
+--ALTER TABLE Invoice
+--DROP COLUMN customer_id;
+
+
+---- Xóa cột ticket_id
+--ALTER TABLE Invoice
+--DROP COLUMN ticket_id;
 
 CREATE TABLE InvoiceDetail (
     invoice_id INT, -- Liên kết với bảng hóa đơn
@@ -102,7 +118,7 @@ CREATE TABLE SeatStatus (
 
 -- Tạo bảng Seat (Ghế)
 CREATE TABLE Seat (
-    seat_id INT PRIMARY KEY,
+    seat_id INT IDENTITY(1,1) PRIMARY KEY,
     theater_id INT,
     seat_number VARCHAR(10),
     status_id INT,
@@ -117,6 +133,8 @@ CREATE TABLE Account (
     employee_id INT, -- Khóa ngoại liên kết với bảng Employee
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) -- Khóa ngoại
 );
+
+
 
 
 --drop database db_movie

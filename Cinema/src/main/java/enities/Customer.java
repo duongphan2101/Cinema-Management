@@ -1,35 +1,42 @@
 package enities;
 
 public class Customer {
-    private int customerId;
-    private String name;
-    private String phone;
+    private static int customerId;
+    private static String name;
+    private static String phone;
+    
 	public Customer() {
 		
 	}
+	
+	public Customer(int customerId) {
+		super();
+		Customer.customerId = customerId;
+	}
+	
 	public Customer(int customerId, String name, String phone) {
 		super();
-		this.customerId = customerId;
-		this.name = name;
-		this.phone = phone;
+		Customer.customerId = customerId;
+		Customer.name = name;
+		Customer.phone = phone;
 	}
-	public int getCustomerId() {
+	public static int getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public static void setCustomerId(int customerId) {
+		Customer.customerId = customerId;
 	}
-	public String getName() {
+	public static String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public static void setName(String name) {
+		Customer.name = name;
 	}
-	public String getPhone() {
+	public static String getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public static void setPhone(String phone) {
+		Customer.phone = phone;
 	}
 	@Override
 	public String toString() {

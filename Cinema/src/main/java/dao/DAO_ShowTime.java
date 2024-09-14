@@ -43,6 +43,37 @@ public class DAO_ShowTime {
 		return list;
 	}
 	
+	public List<Showtime> getAllShowTimebyMovieandDate(int movieId, String date){
+		List<Showtime> list = new ArrayList<Showtime>();
+		String query = "select s.* from Showtime s\r\n"
+				+ " inner join Movie m on m.movie_id = s.movie_id\r\n"
+				+ " inner join Theater t on t.theater_id = s.theater_id\r\n"
+				+ " where m.movie_id = ?  and s.show_date = ?";
+		DAO_Movie dao = new DAO_Movie();
+		DAO_Theater dao1 = new DAO_Theater();
+		try {
+			new DBConnect();
+			conn = DBConnect.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, movieId);
+			ps.setString(2, date);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Movie movie = dao.getMoviebyID(rs.getInt(2));
+				Theater theater = dao1.getTheaterbyID(rs.getInt(3));
+				list.add(new Showtime(rs.getInt(1),
+						movie,
+						theater,
+						rs.getString(4),
+						rs.getString(5))
+					);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public void addShowTime(Showtime showTime) {
 	    String checkQuery = "SELECT COUNT(*) FROM Showtime WHERE theater_id = ? AND show_date = ? AND start_time = ?";
 	    String insertQuery = "INSERT INTO Showtime (movie_id, theater_id, show_date, start_time) VALUES (?, ?, ?, ?);";
@@ -200,9 +231,13 @@ public class DAO_ShowTime {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
+				DAO_Movie dao = new DAO_Movie();
+				Movie e = dao.getMoviebyID(rs.getInt(2));
+				DAO_Theater theaterDao = new DAO_Theater();
+				Theater t = theaterDao.getTheaterbyID(rs.getInt(3));
 	            movie = new Showtime(id, 
-	            		new Movie(rs.getInt(2)), 
-	            		new Theater(rs.getInt(3)), 
+	            		e, 
+	            		t, 
 	            		rs.getString(4), 
 	            		rs.getString(5));
 	        }
@@ -222,7 +257,9 @@ public class DAO_ShowTime {
 	
 	public static void main(String[] args) {
 		DAO_ShowTime dao = new DAO_ShowTime();
-		Showtime s = dao.getShowTimebyID(1003);
-		System.out.println(s);
+		List<Showtime> lst = dao.getAllShowTimebyMovieandDate(1010, "13-09-2024");
+		for(Showtime s : lst) {
+			System.out.println(s);
+		}
 	}
 }

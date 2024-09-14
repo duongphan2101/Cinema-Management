@@ -163,7 +163,7 @@ public class frm_EditSuatChieu extends JFrame {
 		txtTitle.setSelectedItem(show.getMovie().getTitle());
 		txtNgay.setText(show.getShowDate());
 		txtTimeStart.setSelectedItem(show.getStartTime());
-		txtPhongChieu.setSelectedItem(show.getTheater());
+		txtPhongChieu.setSelectedItem(show.getTheater().getName());
 		
 		RoundedPanel btnXoa = new RoundedPanel(15);
 		btnXoa.addMouseListener(new MouseAdapter() {

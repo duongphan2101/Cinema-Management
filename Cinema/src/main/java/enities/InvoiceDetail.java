@@ -1,61 +1,53 @@
 package enities;
 
 public class InvoiceDetail {
-	private int invoiceId;
-	private int ticketId;
+	private Invoice invoice;
+	private Ticket ticket;
 	private int quantity;
 	private float pricePerTicket;
-
+	
 	public InvoiceDetail() {
-
-	}
-
-	public InvoiceDetail(int invoiceId, int ticketId, int quantity, float pricePerTicket) {
 		super();
-		this.invoiceId = invoiceId;
-		this.ticketId = ticketId;
+		// TODO Auto-generated constructor stub
+	}
+	public InvoiceDetail(Invoice invoice, Ticket ticket, int quantity, float pricePerTicket) {
+		super();
+		this.invoice = invoice;
+		this.ticket = ticket;
 		this.quantity = quantity;
 		this.pricePerTicket = pricePerTicket;
 	}
-
-	public int getInvoiceId() {
-		return invoiceId;
+	public InvoiceDetail(Invoice invoice) {
+		super();
+		this.invoice = invoice;
 	}
-
-	public void setInvoiceId(int invoiceId) {
-		this.invoiceId = invoiceId;
+	public Invoice getInvoice() {
+		return invoice;
 	}
-
-	public int getTicketId() {
-		return ticketId;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
-
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
+	public Ticket getTicket() {
+		return ticket;
 	}
-
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
 	public int getQuantity() {
 		return quantity;
 	}
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
 	public float getPricePerTicket() {
 		return pricePerTicket;
 	}
-
 	public void setPricePerTicket(float pricePerTicket) {
 		this.pricePerTicket = pricePerTicket;
 	}
-
 	@Override
 	public String toString() {
-		return "InvoiceDetail [invoiceId=" + invoiceId + ", ticketId=" + ticketId + ", quantity=" + quantity
+		return "InvoiceDetail [invoice=" + invoice + ", ticket=" + ticket + ", quantity=" + quantity
 				+ ", pricePerTicket=" + pricePerTicket + "]";
 	}
-
-	
-
 }

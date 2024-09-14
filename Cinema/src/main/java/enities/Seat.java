@@ -2,7 +2,7 @@ package enities;
 
 public class Seat {
 	private int seatId;
-	private int showtimeId;
+	private Theater theater;
 	private String seatNumber;
 	private SeatStatus seatStatus;
 	
@@ -16,11 +16,10 @@ public class Seat {
 		this.seatId = seatId;
 	}
 
-
-	public Seat(int seatId, int showtimeId, String seatNumber, SeatStatus seatStatus) {
+	public Seat(int seatId, Theater theater, String seatNumber, SeatStatus seatStatus) {
 		super();
 		this.seatId = seatId;
-		this.showtimeId = showtimeId;
+		this.theater = theater;
 		this.seatNumber = seatNumber;
 		this.seatStatus = seatStatus;
 	}
@@ -33,12 +32,12 @@ public class Seat {
 		this.seatId = seatId;
 	}
 
-	public int getShowtimeId() {
-		return showtimeId;
+	public Theater getTheater() {
+		return theater;
 	}
 
-	public void setShowtimeId(int showtimeId) {
-		this.showtimeId = showtimeId;
+	public void setTheater(Theater theater) {
+		this.theater = theater;
 	}
 
 	public String getSeatNumber() {
@@ -56,10 +55,23 @@ public class Seat {
 	public void setSeatStatus(SeatStatus seatStatus) {
 		this.seatStatus = seatStatus;
 	}
+	
+	 @Override
+     public boolean equals(Object obj) {
+         if (this == obj) return true;
+         if (obj == null || getClass() != obj.getClass()) return false;
+         Seat seat = (Seat) obj;
+         return seatNumber.equals(seat.seatNumber);
+     }
+
+     @Override
+     public int hashCode() {
+         return seatNumber.hashCode();
+     }
 
 	@Override
 	public String toString() {
-		return "Seat [seatId=" + seatId + ", showtimeId=" + showtimeId + ", seatNumber=" + seatNumber + ", seatStatus="
+		return "Seat [seatId=" + seatId + ", theater=" + theater + ", seatNumber=" + seatNumber + ", seatStatus="
 				+ seatStatus + "]";
-	}	
+	}
 }

@@ -194,6 +194,62 @@ public class DAO_Movie {
 	    }
 	}
 	
+	public void NgungChieu(int id) {
+	    
+	    String query = "update Movie set status_id = 2 where movie_id = ?";
+
+	    try {
+	        new DBConnect();
+	        conn = DBConnect.getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setInt(1, id);
+
+	        int rowsAffected = ps.executeUpdate();
+	        if (rowsAffected > 0) {
+	            CustomOptionPane.showMess("Đã Chuyển Trạng Thái Phim Thành Ngừng Chiếu");
+	        } else {
+	        	CustomOptionPane.showMess("Cập Nhật Phim Không Thành Công");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+public void DangChieu(int id) {
+	    
+	    String query = "update Movie set status_id = 1 where movie_id = ?";
+
+	    try {
+	        new DBConnect();
+	        conn = DBConnect.getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setInt(1, id);
+
+	        int rowsAffected = ps.executeUpdate();
+	        if (rowsAffected > 0) {
+	            CustomOptionPane.showMess("Đã Chuyển Trạng Thái Phim Thành Đang Chiếu");
+	        } else {
+	        	CustomOptionPane.showMess("Cập Nhật Phim Không Thành Công");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
 	public void deleteMovie(int movieId) {
 	    
 	    String query = "DELETE FROM Movie WHERE movie_id = ?";
@@ -253,8 +309,7 @@ public class DAO_Movie {
 	
 	public static void main(String[] args) {
 		DAO_Movie dao = new DAO_Movie();
-		int id = dao.getMovieIdByTitle("Lật Mặt 6");
-		System.out.println(id);
+		dao.DangChieu(1);
 		
 	}
 

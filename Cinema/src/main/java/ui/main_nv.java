@@ -23,6 +23,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
+
+import dao.DAO_Employee;
+import enities.Employee;
+
 import javax.swing.ImageIcon;
 
 public class main_nv extends JFrame implements ActionListener {
@@ -41,7 +45,8 @@ public class main_nv extends JFrame implements ActionListener {
 	private JPanel frmsuatChieu;
 	private JPanel deskPane;
 	private Timer timer;
-
+	private DAO_Employee daoEmp;
+	private Employee emp;
 	/**
 	 * Launch the application.
 	 */
@@ -88,6 +93,12 @@ public class main_nv extends JFrame implements ActionListener {
 		head.add(logo, BorderLayout.CENTER);
 
 		user = new JLabel("");
+		user.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(emp);
+			}
+		});
 		user.setIcon(new ImageIcon(main_nv.class.getResource("/icon/user-50.png")));
 		head.add(user, BorderLayout.EAST);
 
@@ -101,7 +112,8 @@ public class main_nv extends JFrame implements ActionListener {
 		btnPhim.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				switchPanel(new PhimDangChieu());
+				PhimDangChieu_NhanVien frm = new PhimDangChieu_NhanVien(main_nv.this);
+				switchPanel(frm);
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 			}
@@ -181,14 +193,18 @@ public class main_nv extends JFrame implements ActionListener {
 		contentPane.add(form, BorderLayout.CENTER);
 		form.setLayout(new BorderLayout(0, 0));
 
-		deskPane = new PhimDangChieu();
-		form.add(deskPane);
+		deskPane = new PhimDangChieu_NhanVien(this);
+		form.add(deskPane, BorderLayout.CENTER);
 
 		timer = new Timer(0, this);
 		timer.start();
+		
+		daoEmp = new DAO_Employee();
+        emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
+        
 	}
 
-	private void switchPanel(JPanel panel) {
+	public void switchPanel(JPanel panel) {
 		form.remove(deskPane);
 		deskPane = panel;
 		form.add(deskPane);

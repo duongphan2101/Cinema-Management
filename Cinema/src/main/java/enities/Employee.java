@@ -1,67 +1,67 @@
 package enities;
 
 public class Employee {
-	private int employeeId;
-	private String name;
-	private EmployeeType employeeType;
-	private String birthDate;
-	private String phone;
-	private String email;
+	private static int employeeId;
+	private static String name;
+	private static EmployeeType employeeType;
+	private static String birthDate;
+	private static String phone;
+	private static String email;
 
 	public Employee() {
 		
 	}
 	public Employee(int employeeId) {
 		super();
-		this.employeeId = employeeId;
+		Employee.employeeId = employeeId;
 	}
 
 
 	public Employee(int employeeId, String name, EmployeeType employeeType, String birthDate, String phone,
 			String email) {
 		super();
-		this.employeeId = employeeId;
-		this.name = name;
-		this.employeeType = employeeType;
-		this.birthDate = birthDate;
-		this.phone = phone;
-		this.email = email;
+		Employee.employeeId = employeeId;
+		Employee.name = name;
+		Employee.employeeType = employeeType;
+		Employee.birthDate = birthDate;
+		Employee.phone = phone;
+		Employee.email = email;
 	}
-	public int getEmployeeId() {
+	public static int getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public static void setEmployeeId(int employeeId) {
+		Employee.employeeId = employeeId;
 	}
-	public String getName() {
+	public static String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public static void setName(String name) {
+		Employee.name = name;
 	}
-	public EmployeeType getEmployeeType() {
+	public static EmployeeType getEmployeeType() {
 		return employeeType;
 	}
-	public void setEmployeeType(EmployeeType employeeType) {
-		this.employeeType = employeeType;
+	public static void setEmployeeType(EmployeeType employeeType) {
+		Employee.employeeType = employeeType;
 	}
-	public String getBirthDate() {
+	public static String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
+	public static void setBirthDate(String birthDate) {
+		Employee.birthDate = birthDate;
 	}
-	public String getPhone() {
+	public static String getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public static void setPhone(String phone) {
+		Employee.phone = phone;
 	}
-	public String getEmail() {
+	public static String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public static void setEmail(String email) {
+		Employee.email = email;
 	}
 	@Override
 	public String toString() {

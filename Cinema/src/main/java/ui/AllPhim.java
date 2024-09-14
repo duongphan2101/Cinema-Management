@@ -26,8 +26,6 @@ import service.changeColor;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -37,14 +35,9 @@ public class AllPhim extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollPane;
 	private DAO_Movie dao;
-	private JLabel lblName;
 	private JPanel panel;
-	private JLabel lblImg;
 	private JPanel btnAdd;
 	private JLabel lblNewLabel;
-	private JPopupMenu popup;
-	private JMenuItem pop2;
-	private JMenuItem pop1;
 
 	/**
 	 * Create the panel.
@@ -105,94 +98,112 @@ public class AllPhim extends JPanel {
 	}
 	
 	public void draw(List<Movie> lst) {
-		for(Movie movie : lst) {
-			JPanel item = new JPanel();
-			item.setPreferredSize(new Dimension(180, 200));
-			item.setMinimumSize(getPreferredSize());
-			item.setMaximumSize(getPreferredSize());
-			item.setBorder(new EmptyBorder(10, 20, 10, 20));
-			item.setLayout(new BorderLayout());
-			item.add(lblName = new JLabel(movie.getTitle()), BorderLayout.SOUTH);
-			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			
-			if (movie.getImg() != null) {		    
-			    File imageFile = new File("src/main/java/imgs/" + movie.getImg());
-			    if (imageFile.exists()) {
-			        lblImg = new JLabel();
-			        lblImg.setIcon(new ImageIcon(imageFile.getAbsolutePath()));
-			        lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-			    } else {
-			        lblImg = new JLabel();
-			        lblImg.setText("Hình Ảnh không tồn tại");
-			        lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-			    }
-			    item.add(lblImg, BorderLayout.CENTER);
-			} else {
-			    lblImg = new JLabel();
-			    lblImg.setText("Hình Ảnh");
-			    lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-			    item.add(lblImg, BorderLayout.CENTER);
-			}
-			
-			panel.add(item);
-			popup = new JPopupMenu();
-			pop1 = new JMenuItem("Sửa Thông Tin Phim");
-		    pop2 = new JMenuItem("Xóa Phim");
-		    popup.add(pop1);
-		    popup.add(pop2);
-			item.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if(e.isPopupTrigger()) {
-	        			popup.show(e.getComponent(), e.getX(), e.getY());
-	        		}
-				}
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					
-				}
-				@Override
-				public void mouseExited(MouseEvent e) {
+	    for (Movie movie : lst) {
+	        Movie m = movie;
+	        
+	        JPanel item = new JPanel();
+	        item.setPreferredSize(new Dimension(180, 200));
+	        item.setMinimumSize(getPreferredSize());
+	        item.setMaximumSize(getPreferredSize());
+	        item.setBorder(new EmptyBorder(10, 20, 10, 20));
+	        item.setLayout(new BorderLayout());
 
-				}
-				@Override
-	        	public void mousePressed(MouseEvent e) {
-	        		if(e.isPopupTrigger()) {
-	        			popup.show(e.getComponent(), e.getX(), e.getY());
-	        		}
-	        	}
-	        	@Override
-	        	public void mouseReleased(MouseEvent e) {
-	        		if(e.isPopupTrigger()) {
-	        			popup.show(e.getComponent(), e.getX(), e.getY());
-	        		}
-	        	}
-			});
-			
-			pop1.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					frm_editMoive frm = new frm_editMoive(movie);
-					frm.setVisible(true);
-				}
-			});   
-			pop2.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dao = new DAO_Movie();
-					int yes = CustomOptionPane.showCustomerNotFoundDialog("Bạn có chắc muốn xóa phim này không!");
-					if(yes == JOptionPane.YES_OPTION) {
-						dao.deleteMovie(movie.getMovieId());
-					}
+	        JLabel lblName = new JLabel(m.getTitle());
+	        lblName.setHorizontalAlignment(SwingConstants.CENTER);
+	        item.add(lblName, BorderLayout.SOUTH);
 
-				}
-			});   
-		}
-		
-		
+	        JLabel lblImg = new JLabel();
+	        if (m.getImg() != null) {
+	            File imageFile = new File("src/main/java/imgs/" + m.getImg());
+	            if (imageFile.exists()) {
+	                lblImg.setIcon(new ImageIcon(imageFile.getAbsolutePath()));
+	                lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+	            } else {
+	                lblImg.setText("Hình Ảnh không tồn tại");
+	                lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+	            }
+	        } else {
+	            lblImg.setText("Hình Ảnh");
+	            lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+	        }
+	        item.add(lblImg, BorderLayout.CENTER);
+
+	        panel.add(item);
+	        JPopupMenu popup = new JPopupMenu();
+	        JMenuItem pop1 = new JMenuItem("Sửa Thông Tin Phim");
+	        JMenuItem pop2 = new JMenuItem("Xóa Phim");
+	        JMenuItem pop3 = new JMenuItem("Chuyển trạng thái chiếu");
+	        JMenuItem pop4 = new JMenuItem("Ngưng Chiếu");
+
+	        popup.add(pop1);
+	        popup.add(pop2);
+
+	        pop1.addActionListener(e -> {
+	            System.out.println("HEHE " + m.getTitle());
+	            frm_editMoive frm = new frm_editMoive(m);
+	            frm.setVisible(true);
+	        });
+
+	        pop2.addActionListener(e -> {
+	            dao = new DAO_Movie();
+	            int yes = CustomOptionPane.showCustomerNotFoundDialog("Bạn có chắc muốn xóa phim này không!");
+	            if (yes == JOptionPane.YES_OPTION) {
+	                dao.deleteMovie(m.getMovieId()); 
+	            }
+	        });
+
+	        pop3.addActionListener(e -> {
+	            dao = new DAO_Movie();
+	            dao.DangChieu(m.getMovieId());
+	        });
+
+	        pop4.addActionListener(e -> {
+	            dao = new DAO_Movie();
+	            dao.NgungChieu(m.getMovieId()); 
+	        });
+
+
+	        item.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mousePressed(MouseEvent e) {
+	                if (m.getMovieStatus().getStatusId() != 1) {
+	                    if (e.isPopupTrigger()) {
+	                        popup.show(e.getComponent(), e.getX(), e.getY());
+	                    }
+	                    System.out.println(m.getTitle());
+	                    popup.add(pop3);
+	                    popup.remove(pop4);
+	                } else {
+	                    if (e.isPopupTrigger()) {
+	                        popup.show(e.getComponent(), e.getX(), e.getY());
+	                    }
+	                    System.out.println(m.getTitle());
+	                    popup.add(pop4);
+	                    popup.remove(pop3);
+	                }
+	            }
+
+	            @Override
+	            public void mouseReleased(MouseEvent e) {
+	                if (m.getMovieStatus().getStatusId() != 1) {
+	                    if (e.isPopupTrigger()) {
+	                        popup.show(e.getComponent(), e.getX(), e.getY());
+	                    }
+	                    popup.add(pop3);
+	                    popup.remove(pop4);
+	                } else {
+	                    if (e.isPopupTrigger()) {
+	                        popup.show(e.getComponent(), e.getX(), e.getY());
+	                    }
+	                    popup.add(pop4);
+	                    popup.remove(pop3);
+	                }
+	            }
+	        });
+	    }
 	}
+
+
 	
 
 }

@@ -21,7 +21,7 @@ import service.ScrollPaneWin11;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
-public class PhimDangChieu extends JPanel {
+public class PhimDangChieu_NhanVien extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private DAO_Movie dao;
@@ -29,11 +29,12 @@ public class PhimDangChieu extends JPanel {
 	private JPanel panel;
 	private JLabel lblImg;
 	private JScrollPane scrollPane;
-
+	private main_nv app;
 	/**
 	 * Create the panel.
 	 */
-	public PhimDangChieu() {
+	public PhimDangChieu_NhanVien(main_nv app) {
+		this.app = app;
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setBackground(new Color(255, 255, 255));
 		setLayout(new BorderLayout(0, 0));
@@ -78,9 +79,11 @@ public class PhimDangChieu extends JPanel {
 			panel.add(item);
 			
 			item.addMouseListener(new MouseAdapter() {
+				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+					app.switchPanel(new frm_ChonSuatChieuChoPhim(app, movie));
 				}
 				@Override
 		        public void mousePressed(MouseEvent e) {

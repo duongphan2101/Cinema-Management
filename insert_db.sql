@@ -42,12 +42,6 @@ VALUES (1, N'Trống'),  -- Trạng thái trống
        (2, N'Có khách');  -- Trạng thái có khách
 
 
--- Chèn dữ liệu mẫu cho ghế
-INSERT INTO Seat (seat_id, theater_id, seat_number, status_id)
-VALUES (1, 1, 'A1', 1),  -- Ghế A1 trống
-       (2, 1, 'A2', 2);  -- Ghế A2 có khách
-
-
 INSERT INTO Account (username, password, employee_id) VALUES
 ('admin', '123', 1),   -- Tài khoản quản trị với username 'admin', mật khẩu 'adminPass123', liên kết với nhân viên có ID 1
 ('tranthib', '123', 2), -- Tài khoản quản lý với username 'manager', mật khẩu 'managerPass456', liên kết với nhân viên có ID 2
@@ -79,3 +73,37 @@ INSERT INTO Showtime (movie_id, theater_id, show_date, start_time) VALUES
 --UPDATE Movie
 --SET Img = 'inception.jfif'
 --WHERE movie_id = 1;
+
+INSERT INTO Seat (theater_id, seat_number, status_id)
+VALUES
+    (3, 'A1', 1),
+    (3, 'A2', 1),
+    (3, 'A3', 1),
+    (3, 'A4', 1),
+    (3, 'A5', 1),
+    (3, 'A6', 1),
+    (3, 'A7', 1),
+    (3, 'A8', 1),
+    (3, 'A9', 1),
+    (3, 'A10', 1),
+    (3, 'A11', 1),
+    (3, 'A12', 1),
+    (3, 'A13', 1),
+    (3, 'A14', 1),
+    (3, 'A15', 1),
+    (3, 'A16', 1),
+    (3, 'A17', 1),
+    (3, 'A18', 1),
+    (3, 'A19', 1),
+    (3, 'A20', 1),
+    (3, 'A21', 1),
+    (3, 'A22', 1),
+    (3, 'A23', 1),
+    (3, 'A24', 1),
+    (3, 'A25', 1),
+    (3, 'A26', 1),
+    (3, 'A27', 1),
+    (3, 'A28', 1),
+    (3, 'A29', 1),
+    (3, 'A30', 1);
+
