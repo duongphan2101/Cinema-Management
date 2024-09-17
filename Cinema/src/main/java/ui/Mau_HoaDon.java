@@ -105,7 +105,7 @@ public class Mau_HoaDon extends JFrame {
 		lbl_tongTien.setBounds(379, 475, 243, 28);
 		contentPane.add(lbl_tongTien);		
 		
-		JLabel lblNewLabel_2 = new JLabel("----------Coffee 2T----------");
+		JLabel lblNewLabel_2 = new JLabel("----------CENIMA STAR----------");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(0, 612, 636, 54);

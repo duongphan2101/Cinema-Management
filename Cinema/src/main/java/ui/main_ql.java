@@ -13,7 +13,7 @@ import javax.swing.Timer;
 import service.backGround_Color;
 import service.changeColor;
 import service.clock;
-
+import service.PopupMenu;
 import service.Tag_Link;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 
 import dao.DAO_Employee;
+import dao.DAO_ShowTime;
 import enities.Employee;
 
 
@@ -57,6 +58,7 @@ public class main_ql extends JFrame implements ActionListener {
 	private JLabel lblLogo;
 	private DAO_Employee daoEmp = new DAO_Employee();
 	private Employee emp;
+	private PopupMenu popupMenu;
 	/**
 	 * Launch the application.
 	 */
@@ -147,8 +149,10 @@ public class main_ql extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				switchPanel(new frm_Phim());
 				lblLink.setText(Tag_Link.getTag_link());
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+				changeColor.changCorlor(btnThongKe, backGround_Color.bg_color);
 			}
 		});
 		btnPhim.setPreferredSize(new Dimension(getWidth(), 100));
@@ -171,8 +175,10 @@ public class main_ql extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				lblLink.setText("Quản Lý/Suất Chiếu");
 				switchPanel(new frm_SuatChieu(true));
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
 				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color_deep);
+				changeColor.changCorlor(btnThongKe, backGround_Color.bg_color);
 			}
 		});
 		btnSuatChieu.setPreferredSize(new Dimension(1200, 100));
@@ -202,29 +208,31 @@ public class main_ql extends JFrame implements ActionListener {
 		btnNhanSu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// Tạo một instance của frmAddEmployee
 				frmEmployee frmAddEmployee = new frmEmployee();
 				switchPanel(frmAddEmployee);
 				lblLink.setText("Quản Lý/Nhân Sự/Nhân Viên");
 
 				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color_deep);
 				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+				changeColor.changCorlor(btnThongKe, backGround_Color.bg_color);
 
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color_deep);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
 			}
 		});
 		btnNhanSu.add(lblNewLabel_2, BorderLayout.CENTER);
 
 		btnThongKe = new JPanel();
+		btnThongKe.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanel(new frm_ThongKe());
+				lblLink.setText("Quản Lý/Thống Kê");
+				changeColor.changCorlor(btnNhanSu, backGround_Color.bg_color);
+				changeColor.changCorlor(btnPhim, backGround_Color.bg_color);
+				changeColor.changCorlor(btnSuatChieu, backGround_Color.bg_color);
+				changeColor.changCorlor(btnThongKe, backGround_Color.bg_color_deep);
+			}
+		});
 		btnThongKe.setPreferredSize(new Dimension(1200, 100));
 		btnThongKe.setMaximumSize(new Dimension(1200, 100));
 		btnThongKe.setBackground(backGround_Color.bg_color);
@@ -239,12 +247,20 @@ public class main_ql extends JFrame implements ActionListener {
 		btnThongKe.add(lblNewLabel_3, BorderLayout.CENTER);
 
 		Menu.add(btnLogo, BorderLayout.NORTH);
-		
+		popupMenu = new PopupMenu(this);
 		lblLogo = new JLabel("");
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(emp);
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+                    popupMenu.showPopup(lblLogo, e.getX(), e.getY(), emp);
+                }
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+                    popupMenu.showPopup(lblLogo, e.getX(), e.getY(), emp);
+                }
 			}
 		});
 		lblLogo.setIcon(new ImageIcon(main_ql.class.getResource("/icon/people50.png")));
@@ -270,6 +286,9 @@ public class main_ql extends JFrame implements ActionListener {
         
         daoEmp = new DAO_Employee();
         emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
+        
+        DAO_ShowTime dao = new DAO_ShowTime();
+        dao.startShowtimeChecker();
 	}
 
 	@Override

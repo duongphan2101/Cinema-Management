@@ -139,7 +139,6 @@ public class AllPhim extends JPanel {
 	        popup.add(pop2);
 
 	        pop1.addActionListener(e -> {
-	            System.out.println("HEHE " + m.getTitle());
 	            frm_editMoive frm = new frm_editMoive(m);
 	            frm.setVisible(true);
 	        });
@@ -170,14 +169,12 @@ public class AllPhim extends JPanel {
 	                    if (e.isPopupTrigger()) {
 	                        popup.show(e.getComponent(), e.getX(), e.getY());
 	                    }
-	                    System.out.println(m.getTitle());
 	                    popup.add(pop3);
 	                    popup.remove(pop4);
 	                } else {
 	                    if (e.isPopupTrigger()) {
 	                        popup.show(e.getComponent(), e.getX(), e.getY());
 	                    }
-	                    System.out.println(m.getTitle());
 	                    popup.add(pop4);
 	                    popup.remove(pop3);
 	                }

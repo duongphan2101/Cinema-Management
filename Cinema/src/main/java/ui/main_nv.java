@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import service.PopupMenu;
 import service.backGround_Color;
 import service.changeColor;
 import service.clock;
@@ -25,6 +27,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 
 import dao.DAO_Employee;
+import dao.DAO_ShowTime;
 import enities.Employee;
 
 import javax.swing.ImageIcon;
@@ -47,6 +50,7 @@ public class main_nv extends JFrame implements ActionListener {
 	private Timer timer;
 	private DAO_Employee daoEmp;
 	private Employee emp;
+	private PopupMenu popupMenu;
 	/**
 	 * Launch the application.
 	 */
@@ -91,12 +95,21 @@ public class main_nv extends JFrame implements ActionListener {
 		logo = new JLabel("");
 		logo.setIcon(new ImageIcon(main_nv.class.getResource("/icon/icons8-star-100.png")));
 		head.add(logo, BorderLayout.CENTER);
-
+		
+		popupMenu = new PopupMenu(this);
 		user = new JLabel("");
 		user.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(emp);
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+                    popupMenu.showPopup(user, e.getX(), e.getY(), emp);
+                }
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+                    popupMenu.showPopup(user, e.getX(), e.getY(), emp);
+                }
 			}
 		});
 		user.setIcon(new ImageIcon(main_nv.class.getResource("/icon/user-50.png")));
@@ -201,7 +214,8 @@ public class main_nv extends JFrame implements ActionListener {
 		
 		daoEmp = new DAO_Employee();
         emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
-        
+        DAO_ShowTime dao = new DAO_ShowTime();
+        dao.startShowtimeChecker();
 	}
 
 	public void switchPanel(JPanel panel) {

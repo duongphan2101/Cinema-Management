@@ -3,8 +3,12 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import connect.DBConnect;
 import enities.Movie;
@@ -254,6 +258,85 @@ public class DAO_ShowTime {
 	    }
 	    return movie;
 	}
+	
+	private List<Showtime> getEndedShowtimes() {
+        List<Showtime> endedShowtimes = new ArrayList<>();
+        String query = "SELECT s.showtime_id, s.movie_id, s.theater_id, s.show_date, s.start_time, m.duration\r\n"
+        		+ "FROM Showtime s\r\n"
+        		+ "JOIN Movie m ON s.movie_id = m.movie_id\r\n"
+        		+ "WHERE DATEADD(MINUTE, m.duration, \r\n"
+        		+ "    TRY_CONVERT(DATETIME2, s.show_date + 'T' + s.start_time + ':00', 126)) <= CURRENT_TIMESTAMP;";
+
+		try {
+			new DBConnect();
+			conn = DBConnect.getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+            while (rs.next()) {
+                int showtimeId = rs.getInt("showtime_id");
+                int movieId = rs.getInt("movie_id");
+                int theaterId = rs.getInt("theater_id");
+                String showDate = rs.getString("show_date");
+                String startTime = rs.getString("start_time");
+                
+                DAO_Movie dao = new DAO_Movie();
+				Movie e = dao.getMoviebyID(movieId);
+				
+                DAO_Theater theaterDao = new DAO_Theater();
+				Theater t = theaterDao.getTheaterbyID(theaterId);
+				
+                Showtime showtime = new Showtime(showtimeId, e, t, showDate, startTime);
+                endedShowtimes.add(showtime);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return endedShowtimes;
+    }
+	
+	private void updateSeatsStatus(int theaterId) {
+	    String sql = "UPDATE Seat SET status_id = ? WHERE theater_id = ? AND status_id = (SELECT status_id FROM SeatStatus WHERE status_name = N'Có khách')";
+	    Connection conn = null;
+	    PreparedStatement statement = null;
+
+	    try {
+	        conn = DBConnect.getConnection();
+	        statement = conn.prepareStatement(sql);
+	        statement.setInt(1, 1); 
+	        statement.setInt(2, theaterId);
+
+	        int rowsAffected = statement.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (statement != null) statement.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+
+	
+    public void checkAndUpdateSeats() {
+    	DAO_ShowTime dao = new DAO_ShowTime();
+        List<Showtime> endedShowtimes = dao.getEndedShowtimes();
+
+        for (Showtime showtime : endedShowtimes) {
+            updateSeatsStatus(showtime.getTheater().getTheaterId());
+        }
+    }
+    
+    public void startShowtimeChecker() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            checkAndUpdateSeats();
+        }, 0, 1, TimeUnit.MINUTES);
+    }
 	
 	public static void main(String[] args) {
 		DAO_ShowTime dao = new DAO_ShowTime();

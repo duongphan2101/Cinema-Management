@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import connect.DBConnect;
 import enities.Movie;
 import enities.MovieStatus;
@@ -95,6 +97,37 @@ public class DAO_Movie {
 		}
 		return list;
 	}
+	
+	public DefaultCategoryDataset getListMovieSeller(String ns, String ne) {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	    String query = "SELECT m.title, COUNT(t.ticket_id) AS total_tickets\r\n"
+	    		+ "FROM Movie m\r\n"
+	    		+ "INNER JOIN Showtime s ON s.movie_id = m.movie_id\r\n"
+	    		+ "INNER JOIN Ticket t ON t.showtime_id = s.showtime_id\r\n"
+	    		+ "inner join InvoiceDetail d on d.ticket_id =  t.ticket_id\r\n"
+	    		+ "Inner join Invoice hd on hd.invoice_id = d.invoice_id\r\n"
+	    		+ "WHERE hd.purchase_time BETWEEN ? AND ?\r\n"
+	    		+ "GROUP BY m.movie_id, m.title, m.release_date, m.director, m.genre, m.status_id, m.duration, m.Img\r\n"
+	    		+ "ORDER BY total_tickets DESC";
+	    try {
+	        new DBConnect();
+	        conn = DBConnect.getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, ns);
+	        ps.setString(2, ne);
+	        rs = ps.executeQuery();
+	        while (rs.next()) {
+	            String movieTitle = rs.getString("title");
+	            int totalTickets = rs.getInt("total_tickets");
+	            dataset.addValue(totalTickets, "Phim", movieTitle);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return dataset;
+	}
+
+
 	
 	public Movie getMoviebyID(int id){
 		String query = "select * from Movie where movie_id = ?";
@@ -308,8 +341,6 @@ public void DangChieu(int id) {
 
 	
 	public static void main(String[] args) {
-		DAO_Movie dao = new DAO_Movie();
-		dao.DangChieu(1);
 		
 	}
 
