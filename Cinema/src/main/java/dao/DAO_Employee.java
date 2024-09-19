@@ -140,7 +140,7 @@ public class DAO_Employee {
 
     
     public void updateEmployee(Employee employee) {
-        String query = "UPDATE Employee SET name = ?, employee_type_id = ?, birth_date = ?, phone = ?, email = ? WHERE employee_id = ?";
+        String query = "UPDATE Employee SET name = ?, type_id = ?, birth_day = ?, phone = ?, email = ? WHERE employee_id = ?";
         try {
             new DBConnect();
             conn = DBConnect.getConnection();
@@ -196,7 +196,27 @@ public class DAO_Employee {
             }
         }
     }
-    
+    public void deleteAccountByEmployeeId(int employeeId) throws Exception {
+        String query = "DELETE FROM Account WHERE employee_id = ?";
+        try {
+            new DBConnect();
+            conn = DBConnect.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, employeeId);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e; 
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public Integer getlastEmployeeID() {
         String query = "select top 1 e.employee_id from Employee e order by employee_id desc";
         int id = 0;

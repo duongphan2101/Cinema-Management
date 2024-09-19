@@ -32,5 +32,9 @@ public class CustomOptionPane {
             JOptionPane.QUESTION_MESSAGE
         );
     }
+    public static int showDialog(String message) {
+        int result = JOptionPane.showConfirmDialog(null, message, "Xác nhận", JOptionPane.YES_NO_OPTION);
+        return result;
+    }
 }
 

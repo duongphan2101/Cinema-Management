@@ -7,7 +7,7 @@ public class DBConnect {
 
     private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=db_movie;useUnicode=true;characterEncoding=UTF-8";
     private static final String USER = "sa";
-    private static final String PASS = "123";
+    private static final String PASS = "sapassword";
 
     public static Connection getConnection() {
         Connection conn = null;

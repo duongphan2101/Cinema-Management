@@ -70,7 +70,7 @@ public class frmEmployee extends JPanel {
 		}
 //		System.out.println(list);
 	}
-
+	
 	private void createEmployeePanel(JPanel panel) {
 		RoundedPanel btnAddEmployee = new RoundedPanel(15);
 		btnAddEmployee.setPreferredSize(new Dimension(200, 60));
@@ -105,13 +105,61 @@ public class frmEmployee extends JPanel {
 		lblPen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPen.setForeground(Color.WHITE);
 		lblPen.setFont(new Font("Tahoma", Font.BOLD, 18));
+//		btnPen.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				openAddEmployeeForm_1();
+//			}
+//
+//			private void openAddEmployeeForm_1() {
+//				frm_editEmployee frmEditEmployee = new frm_editEmployee();
+//				frmEditEmployee.setVisible(true);
+//				
+//			}
+//		});
+		
+		btnPen.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int selectedRow = table.getSelectedRow();
+		        if (selectedRow != -1) {
+		            openEditEmployeeForm(selectedRow);
+		        } else {     
+		            openAddEmployeeForm_1();
+		        }
+		    }
 
+		    private void openEditEmployeeForm(int selectedRow) {
+		        String employeeId = model.getValueAt(selectedRow, 0).toString();
+		        String employeeName = model.getValueAt(selectedRow, 1).toString();
+		        String employeeType = model.getValueAt(selectedRow, 2).toString();
+		        String birthDate = model.getValueAt(selectedRow, 3).toString();
+		        String phone = model.getValueAt(selectedRow, 4).toString();
+		        String email = model.getValueAt(selectedRow, 5).toString();
+		        String username = model.getValueAt(selectedRow, 6).toString();
+
+		        frm_editEmployee editForm = new frm_editEmployee(
+		            Integer.parseInt(employeeId), employeeName, employeeType,
+		            birthDate, phone, email, username,
+		            frmEmployee.this 
+		        );
+		        editForm.setVisible(true);
+		    }
+	
+
+		    
+		    
+		    private void openAddEmployeeForm_1() {
+		        frm_editEmployee addEmployeeForm = new frm_editEmployee();
+		        addEmployeeForm.setVisible(true);
+		    }
+		});
 		String[] columnNames = { "Mã NV", "Tên NV", "Loại NV", "Ngày Bắt Đầu", "SĐT", "Email", "Tài Khoản" };
 		model = new DefaultTableModel(columnNames, 0);
 
 		table = new JTable(model);
 		table.setFillsViewportHeight(true);
-
+		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		for (int i = 0; i < columnNames.length; i++) {
@@ -122,12 +170,16 @@ public class frmEmployee extends JPanel {
 		scrollPane.setViewportView(table);
 		scrollPane.setBounds(0, 150, 955, 350);
 		panel.add(scrollPane);
-
 	}
 
 	private void openAddEmployeeForm() {
 		frm_addEmployee addEmployeeForm = new frm_addEmployee();
 		addEmployeeForm.setVisible(true);
+	}
+	
+	public void refreshTable() {
+	    model.setRowCount(0);
+	    loadTable();
 	}
 
 }
