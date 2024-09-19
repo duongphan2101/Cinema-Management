@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.DAO_Account;
 import enities.Account;
-import enities.Employee;
+import enities.CurrentEmp;
 import service.CustomOptionPane;
 import service.RoundedPanel;
 import service.backGround_Color;
@@ -144,8 +144,8 @@ public class CinemaLogin extends JFrame {
     public void Checkin(String user, String pwd) {
     	dao = new DAO_Account();
     	Account a = dao.getAccount(user, pwd);
-    	if(a!=null) {
-    		if(Employee.getEmployeeType().getTypeId()==1) {
+    	if(a!=null) {	
+    		if(CurrentEmp.getEmployeeType().getTypeId()==1) {
     			CustomOptionPane.showNotice("Đăng Nhập Thành Công!");
     			main_ql frm = new main_ql();
     			frm.setVisible(true);  			

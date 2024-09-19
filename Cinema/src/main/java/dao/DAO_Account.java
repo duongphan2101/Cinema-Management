@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 
 import connect.DBConnect;
 import enities.Account;
+import enities.CurrentEmp;
 import enities.Employee;
+import enities.EmployeeType;
 
 public class DAO_Account {
 	
@@ -25,7 +27,8 @@ public class DAO_Account {
 	            rs = ps.executeQuery();
 	            if (rs.next()) {
 	            	DAO_Employee dao = new DAO_Employee();
-	            	Employee e = dao.getEmployeeByID(rs.getInt(4));
+	            	CurrentEmp emp = dao.getEmployeeByID(rs.getInt(4));
+	            	Employee e = new Employee(emp.getEmployeeId(), emp.getEmail(), new EmployeeType(emp.getEmployeeType().getTypeId()), emp.getBirthDate(), emp.getPhone(), emp.getEmail());
 	               return new Account(rs.getInt(1),
 	            		   rs.getString(2),
 	            		   rs.getString(3),
@@ -47,7 +50,7 @@ public class DAO_Account {
 	    
 	    public static void main(String[] args) {
 			DAO_Account dao = new DAO_Account();
-			Account a = dao.getAccount("tranthib", "123");
+			Account a = dao.getAccount("admin", "123");
 			System.out.println(a);
 		}
 }

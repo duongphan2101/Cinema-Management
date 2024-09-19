@@ -2,7 +2,7 @@ package service;
 
 import javax.swing.*;
 
-import enities.Employee;
+import enities.CurrentEmp;
 import ui.CinemaLogin;
 import ui.Infor_employee;
 
@@ -21,7 +21,7 @@ public class PopupMenu {
 	 }
 
 
-    public void showPopup(Component com, int x, int y, Employee nv) {
+    public void showPopup(Component com, int x, int y, CurrentEmp nv) {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenuItem itemThongTinCaNhan = new JMenuItem("Thông tin cá nhân");

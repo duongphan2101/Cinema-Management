@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.DAO_Employee;
 import dao.DAO_ShowTime;
-import enities.Employee;
+import enities.CurrentEmp;
 
 
 public class main_ql extends JFrame implements ActionListener {
@@ -57,7 +57,7 @@ public class main_ql extends JFrame implements ActionListener {
 	private JPanel frm_Phim;
 	private JLabel lblLogo;
 	private DAO_Employee daoEmp = new DAO_Employee();
-	private Employee emp;
+	private CurrentEmp emp;
 	private PopupMenu popupMenu;
 	/**
 	 * Launch the application.
@@ -285,7 +285,7 @@ public class main_ql extends JFrame implements ActionListener {
         timer.start();
         
         daoEmp = new DAO_Employee();
-        emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
+        emp = daoEmp.getEmployeeByID(CurrentEmp.getEmployeeId());
         
         DAO_ShowTime dao = new DAO_ShowTime();
         dao.startShowtimeChecker();

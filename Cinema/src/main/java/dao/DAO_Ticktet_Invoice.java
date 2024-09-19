@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connect.DBConnect;
+import enities.CurrentEmp;
 import enities.Employee;
+import enities.EmployeeType;
 import enities.Invoice;
 import enities.InvoiceDetail;
 import enities.Showtime;
@@ -53,7 +55,7 @@ public class DAO_Ticktet_Invoice {
 	            ps.setFloat(1, invoice.getTotalAmount());
 	            ps.setString(2, invoice.getPurchaseTime());
 	            invoice.getEmployee();
-				ps.setInt(3, Employee.getEmployeeId());
+				ps.setInt(3, invoice.getEmployee().getEmployeeId());
 	            ps.executeUpdate();
 	        } catch (Exception e) {
 	            e.printStackTrace();
@@ -176,12 +178,12 @@ public class DAO_Ticktet_Invoice {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				DAO_Employee dao = new DAO_Employee();
-				Employee e = dao.getEmployeeByID(rs.getInt(4));
+//				DAO_Employee dao = new DAO_Employee();
+				Employee emp = new Employee(CurrentEmp.getEmployeeId(), CurrentEmp.getName(), new EmployeeType(CurrentEmp.getEmployeeType().getTypeId()), CurrentEmp.getBirthDate(), CurrentEmp.getPhone(), CurrentEmp.getEmail());
 	           return new Invoice(rs.getInt(1),
 	        		   rs.getInt(2),
 	        		   rs.getString(3),
-	        		   e);
+	        		   emp);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();

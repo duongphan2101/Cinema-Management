@@ -15,7 +15,9 @@ import javax.swing.border.EmptyBorder;
 import dao.DAO_Employee;
 import dao.DAO_Theater;
 import dao.DAO_Ticktet_Invoice;
+import enities.CurrentEmp;
 import enities.Employee;
+import enities.EmployeeType;
 import enities.Invoice;
 import enities.InvoiceDetail;
 import enities.Seat;
@@ -130,10 +132,10 @@ public class frm_ChonPhongChieu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                     DAO_Ticktet_Invoice dao = new DAO_Ticktet_Invoice();        
-                    DAO_Employee daoEmp = new DAO_Employee();
+//                    DAO_Employee daoEmp = new DAO_Employee();
 
                     timeToDay = new Date();
-                    Employee emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
+                    Employee emp = new Employee(CurrentEmp.getEmployeeId(), CurrentEmp.getName(), new EmployeeType(CurrentEmp.getEmployeeType().getTypeId()), CurrentEmp.getBirthDate(), CurrentEmp.getPhone(), CurrentEmp.getEmail());
                     Invoice invoice = new Invoice(1, 0, getDate.toDateTime(timeToDay), emp);
                     dao.addInvoice(invoice);
 

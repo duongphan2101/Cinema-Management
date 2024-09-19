@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import dao.DAO_Ticktet_Invoice;
-import enities.Employee;
+import enities.CurrentEmp;
 import enities.Invoice;
 import enities.InvoiceDetail;
 
@@ -123,7 +123,7 @@ public class Mau_HoaDon extends JFrame {
 	    Invoice hds = hddao.getInvoicebyID(maHD);
 	    lbl_ngayLap.setText("Ngày Lập: " + hds.getPurchaseTime());
 	    hds.getEmployee();
-		lbl_nvLap.setText("Nhân Viên lập hóa đơn: " + Employee.getName());
+		lbl_nvLap.setText("Nhân Viên lập hóa đơn: " + CurrentEmp.getName());
 	    lbl_tongTien.setText("Tổng Tiền: " + df.format(hds.getTotalAmount()));
 
 	    List<InvoiceDetail> listcthd = hddao.getDetailbyInvoiceId(maHD);

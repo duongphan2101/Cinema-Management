@@ -4,7 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import enities.Employee;
+
+import enities.CurrentEmp;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class Infor_employee extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	static Employee nv;
+	static CurrentEmp nv;
 	private JLabel lbl_ten, lbl_sdt, lbl_Ma;
 	private JLabel lbl_diaChi;
 	private JLabel lbl_MaLoaiNhanVien;
@@ -36,7 +37,7 @@ public class Infor_employee extends JFrame {
 		});
 	}
 
-	public Infor_employee(Employee nv) throws SQLException, ParseException {
+	public Infor_employee(CurrentEmp nv) throws SQLException, ParseException {
 		setType(Type.UTILITY);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,23 +57,23 @@ public class Infor_employee extends JFrame {
 		lbl_title.setBounds(10, 10, 536, 40);
 		contentPane.add(lbl_title);
 		
-		lbl_ten = new JLabel("Họ Tên Nhân Viên: " + Employee.getName());
+		lbl_ten = new JLabel("Họ Tên Nhân Viên: " + CurrentEmp.getName());
 		lbl_ten.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_ten.setBounds(10, 254, 536, 30);
 		contentPane.add(lbl_ten);
 		
-		lbl_sdt = new JLabel("Số Điện Thoại: " + Employee.getPhone());
+		lbl_sdt = new JLabel("Số Điện Thoại: " + CurrentEmp.getPhone());
 		lbl_sdt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_sdt.setBounds(10, 294, 269, 30);
 		contentPane.add(lbl_sdt);
 		
-		lbl_Ma = new JLabel("Mã Nhân Viên: " + Employee.getEmployeeId());
+		lbl_Ma = new JLabel("Mã Nhân Viên: " + CurrentEmp.getEmployeeId());
 		lbl_Ma.setHorizontalAlignment(SwingConstants.TRAILING);
 		lbl_Ma.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_Ma.setBounds(277, 294, 269, 30);
 		contentPane.add(lbl_Ma);
 		
-		JLabel lbl_email = new JLabel("Email: " + Employee.getEmail());
+		JLabel lbl_email = new JLabel("Email: " + CurrentEmp.getEmail());
 		lbl_email.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_email.setBounds(10, 334, 269, 30);
 		contentPane.add(lbl_email);
@@ -83,15 +84,15 @@ public class Infor_employee extends JFrame {
 		avt.setBounds(10, 60, 536, 184);
 		contentPane.add(avt);
 		
-		lbl_diaChi = new JLabel("Ngày Sinh: " + Employee.getBirthDate());
+		lbl_diaChi = new JLabel("Ngày Sinh: " + CurrentEmp.getBirthDate());
 		lbl_diaChi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_diaChi.setBounds(10, 374, 269, 30);
 		contentPane.add(lbl_diaChi);
 		
 		String lnv = "";
-		if(Employee.getEmployeeType().getTypeId()==1) {
+		if(CurrentEmp.getEmployeeType().getTypeId()==1) {
 			lnv = "Quản Lý";
-		}else if(Employee.getEmployeeType().getTypeId()==2) {
+		}else if(CurrentEmp.getEmployeeType().getTypeId()==2) {
 			lnv = "Nhân viên bán vé";
 		}else {
 			lnv = "Kỹ thuật viên";

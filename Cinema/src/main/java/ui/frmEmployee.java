@@ -10,9 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DAO_Employee;
-import enities.Employee;
-
-import javax.swing.JTabbedPane;
+import enities.Account;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -32,7 +30,7 @@ public class frmEmployee extends JPanel {
 	private JTable table;
 	private DefaultTableModel model;
 	private DAO_Employee dao;
-	private List<Employee> list;
+	private List<Account> list;
 
 	/**
 	 * Create the panel.
@@ -42,18 +40,14 @@ public class frmEmployee extends JPanel {
 		setSize(955, 500);
 		setLayout(new BorderLayout());
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
 
 		JPanel employeePanel = new JPanel();
 		employeePanel.setLayout(null);
 		createEmployeePanel(employeePanel);
 
-		JPanel customerPanel = new JPanel();
-		customerPanel.setLayout(new BorderLayout());
-
-		tabbedPane.addTab("Nhân Viên", null, employeePanel, null);
-		tabbedPane.addTab("Khách Hàng", null, customerPanel, null);
-		add(tabbedPane, BorderLayout.CENTER);
+		
+		add(employeePanel, BorderLayout.CENTER);
 
 		loadTable();
 
@@ -61,16 +55,16 @@ public class frmEmployee extends JPanel {
 
 	private void loadTable() {
 		dao = new DAO_Employee();
-		list = dao.getAllEmployees();
+		list = dao.getAllEmployee();
 	
-		for (Employee e : list) {
+		for (Account e : list) {
 			String employeeType = "";
-			if (e.getEmployeeType() != null) {
-				employeeType = e.getEmployeeType().getTypeId() == 1 ? "Quản lý" : "Nhân viên";
+			if (e.getEmployee().getEmployeeType() != null) {
+				employeeType = e.getEmployee().getEmployeeType().getTypeId() == 1 ? "Quản lý" : "Nhân viên";
 			}
 
-			String[] row = { String.valueOf(e.getEmployeeId()), e.getName(), employeeType, e.getBirthDate(),
-					e.getPhone(), e.getEmail() };
+			String[] row = { String.valueOf(e.getEmployee().getEmployeeId()), e.getEmployee().getName(), employeeType, e.getEmployee().getBirthDate(),
+					e.getEmployee().getPhone(), e.getEmployee().getEmail(),e.getUsername() };
 			model.addRow(row);
 //			System.out.println(e);
 		}

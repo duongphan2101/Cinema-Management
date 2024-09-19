@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connect.DBConnect;
+import enities.Account;
+import enities.CurrentEmp;
 import enities.Employee;
 import enities.EmployeeType;
 import service.CustomOptionPane;
@@ -17,22 +19,45 @@ public class DAO_Employee {
     ResultSet rs = null;
 
     
-    public List<Employee> getAllEmployees() {
-        List<Employee> list = new ArrayList<Employee>();
-        String query = "SELECT * FROM Employee";
+    public List<Account> getAllEmployee(){
+    	List<Account> list = new ArrayList<Account>();
+		String query = "select a.* from Account a \r\n"
+				+ "inner join Employee e on a.employee_id = e.employee_id\r\n"
+				+ "where e.type_id in(2,3);";
+		try {
+			new DBConnect();
+			conn = DBConnect.getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				DAO_Employee dao = new DAO_Employee();
+				Employee e = dao.getEmployeebyID(rs.getInt(4));
+				list.add(new Account(rs.getInt(1), rs.getString(2), rs.getString(3), e));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+    
+    public CurrentEmp getEmployeeByID(int id) {
+        String query = "SELECT * FROM Employee WHERE employee_id = ?";
+        CurrentEmp employee = null;
         try {
             new DBConnect();
             conn = DBConnect.getConnection();
             ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Employee(
-                    rs.getInt(1), 
-                    rs.getString(2), 
-                    new EmployeeType(rs.getInt(3)),  
-                    rs.getString(4), 
-                    rs.getString(5), 
-                    rs.getString(6))
+            if (rs.next()) {
+                employee = new CurrentEmp(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    new EmployeeType(rs.getInt(3)),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6)
                 );
             }
         } catch (Exception e) {
@@ -46,11 +71,10 @@ public class DAO_Employee {
                 e.printStackTrace();
             }
         }
-        return list;
+        return employee;
     }
-
     
-    public Employee getEmployeeByID(int id) {
+    public Employee getEmployeebyID(int id) {
         String query = "SELECT * FROM Employee WHERE employee_id = ?";
         Employee employee = null;
         try {
@@ -85,17 +109,16 @@ public class DAO_Employee {
 
    
     public void addEmployee(Employee employee) {
-        String query = "INSERT INTO Employee (employee_id, name, employee_type_id, birth_date, phone, email) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Employee (name, type_id, birth_day, phone, email) VALUES (?, ?, ?, ?, ?)";
         try {
             new DBConnect();
             conn = DBConnect.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, employee.getEmployeeId()); 
-            ps.setString(2, employee.getName());
-            ps.setInt(3, employee.getEmployeeType().getTypeId());  
-            ps.setString(4, employee.getBirthDate());
-            ps.setString(5, employee.getPhone());
-            ps.setString(6, employee.getEmail());
+            ps.setString(1, employee.getName());
+            ps.setInt(2, employee.getEmployeeType().getTypeId());  
+            ps.setString(3, employee.getBirthDate());
+            ps.setString(4, employee.getPhone());
+            ps.setString(5, employee.getEmail());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -173,6 +196,16 @@ public class DAO_Employee {
             }
         }
     }
+    
+    public static void main(String[] args) {
+		DAO_Employee dao = new DAO_Employee();
+		List<Account> lst = dao.getAllEmployee();
+		for(Account e : lst) {
+			System.out.println(e);
+		}
+//		Employee e = dao.getEmployeeByID(2);
+//		System.out.println(e);
+	}
 
     
 }

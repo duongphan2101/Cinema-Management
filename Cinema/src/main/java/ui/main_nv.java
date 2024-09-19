@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.DAO_Employee;
 import dao.DAO_ShowTime;
+import enities.CurrentEmp;
 import enities.Employee;
 
 import javax.swing.ImageIcon;
@@ -49,7 +50,7 @@ public class main_nv extends JFrame implements ActionListener {
 	private JPanel deskPane;
 	private Timer timer;
 	private DAO_Employee daoEmp;
-	private Employee emp;
+	private CurrentEmp emp;
 	private PopupMenu popupMenu;
 	/**
 	 * Launch the application.
@@ -213,7 +214,7 @@ public class main_nv extends JFrame implements ActionListener {
 		timer.start();
 		
 		daoEmp = new DAO_Employee();
-        emp = daoEmp.getEmployeeByID(Employee.getEmployeeId());
+        emp = daoEmp.getEmployeeByID(CurrentEmp.getEmployeeId());
         DAO_ShowTime dao = new DAO_ShowTime();
         dao.startShowtimeChecker();
 	}

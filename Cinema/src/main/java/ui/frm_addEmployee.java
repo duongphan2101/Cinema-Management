@@ -89,8 +89,6 @@ public class frm_addEmployee extends JFrame {
 		content = new JPanel();
 		body.add(content, BorderLayout.CENTER);
 
-		String[] movieGenres = { "Khoa học viễn tưởng", "Hành động", "Lãng mạn", "Kinh dị", "Tâm lý", "Tội phạm" };
-
 		btnAdd = new RoundedPanel(15);
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAdd.setBounds(106, 349, 250, 40);
@@ -138,8 +136,8 @@ public class frm_addEmployee extends JFrame {
 		dateChooser = new DateChooser();
 		dateChooser.setTextRefernce(txtNgay);
 
-		txtGenre = new JComboBox<>(movieGenres);
-		txtGenre.setModel(new DefaultComboBoxModel(new String[] { "Quản lý", "Nhân viên" }));
+		 String[] chucvu = { "Quản lý", "Nhân viên" };
+		txtGenre = new JComboBox<>(chucvu);
 		txtGenre.setBounds(81, 281, 275, 30);
 		content.add(txtGenre);
 
