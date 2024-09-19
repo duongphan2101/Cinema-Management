@@ -197,14 +197,26 @@ public class DAO_Employee {
         }
     }
     
+    public Integer getlastEmployeeID() {
+        String query = "select top 1 e.employee_id from Employee e order by employee_id desc";
+        int id = 0;
+        try {
+            new DBConnect();
+            conn = DBConnect.getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
     public static void main(String[] args) {
 		DAO_Employee dao = new DAO_Employee();
-		List<Account> lst = dao.getAllEmployee();
-		for(Account e : lst) {
-			System.out.println(e);
-		}
-//		Employee e = dao.getEmployeeByID(2);
-//		System.out.println(e);
+		System.out.println(dao.getlastEmployeeID());
 	}
 
     

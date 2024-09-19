@@ -307,7 +307,7 @@ public class DAO_ShowTime {
 	        statement.setInt(1, 1); 
 	        statement.setInt(2, theaterId);
 
-	        int rowsAffected = statement.executeUpdate();
+	        statement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {

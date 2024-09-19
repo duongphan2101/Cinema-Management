@@ -29,7 +29,6 @@ import javax.swing.border.EmptyBorder;
 import dao.DAO_Employee;
 import dao.DAO_ShowTime;
 import enities.CurrentEmp;
-import enities.Employee;
 
 import javax.swing.ImageIcon;
 

@@ -126,7 +126,7 @@ public class frmEmployee extends JPanel {
 	}
 
 	private void openAddEmployeeForm() {
-		frm_addEmployee addEmployeeForm = new frm_addEmployee(dao);
+		frm_addEmployee addEmployeeForm = new frm_addEmployee();
 		addEmployeeForm.setVisible(true);
 	}
 

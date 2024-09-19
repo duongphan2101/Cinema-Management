@@ -28,7 +28,8 @@ public class DAO_Account {
 	            if (rs.next()) {
 	            	DAO_Employee dao = new DAO_Employee();
 	            	CurrentEmp emp = dao.getEmployeeByID(rs.getInt(4));
-	            	Employee e = new Employee(emp.getEmployeeId(), emp.getEmail(), new EmployeeType(emp.getEmployeeType().getTypeId()), emp.getBirthDate(), emp.getPhone(), emp.getEmail());
+	            	@SuppressWarnings("static-access")
+					Employee e = new Employee(emp.getEmployeeId(), emp.getEmail(), new EmployeeType(emp.getEmployeeType().getTypeId()), emp.getBirthDate(), emp.getPhone(), emp.getEmail());
 	               return new Account(rs.getInt(1),
 	            		   rs.getString(2),
 	            		   rs.getString(3),
@@ -46,6 +47,22 @@ public class DAO_Account {
 	            }
 	        }
 	        return null;
+	    }
+	    
+	    public void addAccount(Account a, int id) {
+	        String query = "INSERT INTO Account (username, password, employee_id) VALUES (?, ?, ?)";
+	        try {
+	            new DBConnect();
+	            conn = DBConnect.getConnection();
+	            ps = conn.prepareStatement(query);
+	            ps.setString(1, a.getUsername());
+	            ps.setString(2, a.getPassword());  
+	            ps.setInt(3, id);
+	            ps.executeUpdate();
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } 
 	    }
 	    
 	    public static void main(String[] args) {
