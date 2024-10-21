@@ -12,22 +12,17 @@ INSERT INTO Employee (name, type_id, birth_day, phone, email) VALUES
 INSERT INTO MovieStatus (status)
 VALUES (N'Đang chiếu'), (N'Ngừng chiếu');
 
-INSERT INTO Movie (title, genre, duration, release_date, director, status_id) VALUES
-('Inception', N'Khoa học viễn tưởng', 148, '2010-07-16', 'Christopher Nolan', 1),  -- 1 là 'Đang chiếu'
-('The Dark Knight', N'Hành động', 152, '2008-07-18', 'Christopher Nolan', 2),     -- 2 là 'Không chiếu'
-('Titanic', N'Lãng mạn', 195, '1997-12-19', 'James Cameron', 1),
-('Avatar', N'Khoa học viễn tưởng', 162, '2009-12-18', 'James Cameron', 1),
-('Parasite', N'Kinh dị', 132, '2019-05-30', 'Bong Joon-ho', 2),
-('Avengers: Endgame', N'Hành động', 181, '2019-04-26', 'Anthony Russo, Joe Russo', 1),
-('The Matrix', N'Khoa học viễn tưởng', 136, '1999-03-31', 'Lana Wachowski, Lilly Wachowski', 2),
-('Forrest Gump', N'Tâm lý', 142, '1994-07-06', 'Robert Zemeckis', 1),
-('Interstellar', N'Khoa học viễn tưởng', 169, '2014-11-07', 'Christopher Nolan', 1),
-('The Godfather', N'Tội phạm', 175, '1972-03-24', 'Francis Ford Coppola', 2);
-
-
-INSERT INTO Customer (name, phone) VALUES 
-(N'Phan Thị D', N'0904567890'),
-(N'Hoàng Văn E', N'0905678901');
+INSERT INTO Movie (title, genre, duration, release_date, director, status_id, Img) VALUES
+('Inception', N'Khoa học viễn tưởng', 148, '2010-07-16', 'Christopher Nolan', 1, N'inception.jfif'),  -- 1 là 'Đang chiếu'
+('The Dark Knight', N'Hành động', 152, '2008-07-18', 'Christopher Nolan', 2, N'thedarknight.jfif'),     -- 2 là 'Không chiếu'
+('Titanic', N'Lãng mạn', 195, '1997-12-19', 'James Cameron', 1, N'titanic.jfif'),
+('Avatar', N'Khoa học viễn tưởng', 162, '2009-12-18', 'James Cameron', 1, N'avatar.jfif'),
+('Parasite', N'Kinh dị', 132, '2019-05-30', 'Bong Joon-ho', 2, N'parasite.jfif'),
+('Avengers: Endgame', N'Hành động', 181, '2019-04-26', 'Anthony Russo, Joe Russo', 1,  N'endgame.jfif'),
+('The Matrix', N'Khoa học viễn tưởng', 136, '1999-03-31', 'Lana Wachowski, Lilly Wachowski', 2,  N'matrix.jfif'),
+('Forrest Gump', N'Tâm lý', 142, '1994-07-06', 'Robert Zemeckis', 1,  N'gump.jfif'),
+('Interstellar', N'Khoa học viễn tưởng', 169, '2014-11-07', 'Christopher Nolan', 1,  N'interstellar.jfif'),
+('The Godfather', N'Tội phạm', 175, '1972-03-24', 'Francis Ford Coppola', 2,  N'godfather.jfif');
 
 
 INSERT INTO Theater (name, location, capacity) VALUES 
@@ -60,22 +55,31 @@ INSERT INTO Showtime (movie_id, theater_id, show_date, start_time) VALUES
 (3, 3, '2024-09-12', '20:00'),  -- Phim với ID 3, Rạp với ID 3, Ngày chiếu 12/09/2024, Thời gian bắt đầu 20:00
 (4, 2, '2024-09-13', '17:00');  -- Phim với ID 4, Rạp với ID 2, Ngày chiếu 13/09/2024, Thời gian bắt đầu 17:00
 
---INSERT INTO Ticket (showtime_id, seat_number, price, purchase_time) VALUES 
---(1, N'A1', 7.5, N'2024-09-05 13:45:00'),
---(2, N'B2', 9.0, N'2024-09-05 15:00:00'),
---(3, N'C3', 12.5, N'2024-09-05 17:30:00');
-
---INSERT INTO Invoice (customer_name, customer_id, total_amount, purchase_time, employee_id, ticket_id) VALUES 
---(N'Phan Thị D', 1, 7.5, N'2024-09-05 13:50:00', 2, 1),  -- Liên kết với vé có ticket_id = 1
---(N'Hoàng Văn E', 2, 9.0, N'2024-09-05 15:05:00', 2, 2),  -- Liên kết với vé có ticket_id = 2
---(N'Nguyễn Văn F', NULL, 12.5, N'2024-09-05 17:35:00', 1, 3); -- Liên kết với vé có ticket_id = 3
-
---UPDATE Movie
---SET Img = 'inception.jfif'
---WHERE movie_id = 1;
 
 INSERT INTO Seat (theater_id, seat_number, status_id)
 VALUES
+	(1, 'A1', 1),
+    (1, 'A2', 1),
+    (1, 'A3', 1),
+    (1, 'A4', 1),
+    (1, 'A5', 1),
+    (1, 'A6', 1),
+    (1, 'A7', 1),
+    (1, 'A8', 1),
+    (1, 'A9', 1),
+    (1, 'A10', 1),
+
+	(2, 'A1', 1),
+    (2, 'A2', 1),
+    (2, 'A3', 1),
+    (2, 'A4', 1),
+    (2, 'A5', 1),
+    (2, 'A6', 1),
+    (2, 'A7', 1),
+    (2, 'A8', 1),
+    (2, 'A9', 1),
+    (2, 'A10', 1),
+
     (3, 'A1', 1),
     (3, 'A2', 1),
     (3, 'A3', 1),
@@ -106,4 +110,5 @@ VALUES
     (3, 'A28', 1),
     (3, 'A29', 1),
     (3, 'A30', 1);
+
 

@@ -31,7 +31,6 @@ public class frmEmployee extends JPanel {
 	private DefaultTableModel model;
 	private DAO_Employee dao;
 	private List<Account> list;
-
 	/**
 	 * Create the panel.
 	 */
@@ -93,6 +92,18 @@ public class frmEmployee extends JPanel {
 		lblThemNhanVien.setFont(new Font("Tahoma", Font.BOLD, 18));
 
 		RoundedPanel btnPen = new RoundedPanel(15);
+		btnPen.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table.getSelectedRow();
+				String id = model.getValueAt(index, 0).toString();
+				dao = new DAO_Employee();
+				
+				frm_EditEmployee frm = new frm_EditEmployee(dao.getEmployeebyID(Integer.parseInt(id)));
+				frm.setVisible(true);
+				
+			}
+		});
 		btnPen.setPreferredSize(new Dimension(200, 60));
 		btnPen.setBackground(new Color(190, 6, 43));
 		btnPen.setBounds(619, 74, 48, 48);

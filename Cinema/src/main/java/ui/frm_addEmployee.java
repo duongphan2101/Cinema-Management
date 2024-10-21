@@ -124,7 +124,7 @@ public class frm_addEmployee extends JFrame {
 		dateChooser = new DateChooser();
 		dateChooser.setTextRefernce(txtNgay);
 
-		 String[] chucvu = { "Quản lý", "Nhân viên" };
+		String[] chucvu = { "Quản lý", "Nhân viên bán vé", "Kỹ thuật viên" };
 		txtGenre = new JComboBox<>(chucvu);
 		txtGenre.setBounds(10, 272, 214, 30);
 		content.add(txtGenre);
@@ -190,16 +190,21 @@ public class frm_addEmployee extends JFrame {
 			        String birthDate = txtNgay.getText().trim();
 			        String phone = txtSDT.getText().trim();
 			        String email = txt_Email.getText().trim();
-			        int employeeTypeId = txtGenre.getSelectedItem().equals("Quản lý") ? 1 : 2;
-
+			        int employeeTypeId = 0;
+			        if(txtGenre.getSelectedItem().equals("Quản lý")) {
+			        	employeeTypeId = 1;
+			        }else if(txtGenre.getSelectedItem().equals("Nhân viên bán vé")) {
+			        	employeeTypeId = 2;
+			        }else {
+			        	employeeTypeId = 3;
+			        }
 			      
 			        EmployeeType employeeType = new EmployeeType(employeeTypeId);
 			        Employee employee = new Employee(1, name, employeeType, birthDate, phone, email);
 
 			        dao = new DAO_Employee();
 			        dao.addEmployee(employee);
-
-			        CustomOptionPane.showMess("Thêm nhân viên thành công!");
+			        dispose();
 			    } catch (NumberFormatException ex) {
 			        CustomOptionPane.showMess("Mã nhân viên không hợp lệ: " + ex.getMessage());
 			    } catch (Exception ex) {

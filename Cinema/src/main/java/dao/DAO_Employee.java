@@ -122,7 +122,7 @@ public class DAO_Employee {
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                CustomOptionPane.showMess("Thêm nhân viên thành công!");
+                CustomOptionPane.showNotice("Thêm nhân viên thành công!");
             } else {
                 CustomOptionPane.showMess("Không có nhân viên nào được thêm.");
             }
@@ -140,7 +140,7 @@ public class DAO_Employee {
 
     
     public void updateEmployee(Employee employee) {
-        String query = "UPDATE Employee SET name = ?, employee_type_id = ?, birth_date = ?, phone = ?, email = ? WHERE employee_id = ?";
+        String query = "UPDATE Employee SET name = ?, type_id = ?, birth_day = ?, phone = ?, email = ? WHERE employee_id = ?";
         try {
             new DBConnect();
             conn = DBConnect.getConnection();
@@ -154,7 +154,7 @@ public class DAO_Employee {
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                CustomOptionPane.showMess("Cập nhật nhân viên thành công!");
+                CustomOptionPane.showNotice("Cập nhật nhân viên thành công!");
             } else {
                 CustomOptionPane.showMess("Cập nhật nhân viên không thành công.");
             }
@@ -170,7 +170,26 @@ public class DAO_Employee {
         }
     }
 
-   
+    public void deleteAccount(int employeeId) {
+        String query = "DELETE FROM Account WHERE employee_id = ?";
+        try {
+            new DBConnect();
+            conn = DBConnect.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, employeeId);  
+            ps.executeUpdate();
+           
+        	} catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                if (ps != null) ps.close();
+	                if (conn != null) conn.close();
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+    }
     public void deleteEmployee(int employeeId) {
         String query = "DELETE FROM Employee WHERE employee_id = ?";
         try {
@@ -181,7 +200,7 @@ public class DAO_Employee {
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                CustomOptionPane.showMess("Xóa nhân viên thành công!");
+                CustomOptionPane.showNotice("Xóa nhân viên thành công!");
             } else {
                 CustomOptionPane.showMess("Xóa nhân viên không thành công.");
             }

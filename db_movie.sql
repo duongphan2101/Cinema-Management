@@ -20,13 +20,6 @@ CREATE TABLE Employee (
     email NVARCHAR(255),
 );
 
--- Bảng quản lý khách hàng
---CREATE TABLE Customer (
---    customer_id INT PRIMARY KEY IDENTITY(1,1),
---    name NVARCHAR(255) NOT NULL,
---    phone NVARCHAR(20),
---);
-
 CREATE TABLE MovieStatus (
     status_id INT PRIMARY KEY IDENTITY(1,1),
     status NVARCHAR(20) CHECK (status IN (N'Đang chiếu', N'Ngừng chiếu')) NOT NULL
@@ -84,21 +77,11 @@ FOREIGN KEY (theater_id) REFERENCES Theater(theater_id);
 -- Bảng quản lý hóa đơn
 CREATE TABLE Invoice (
     invoice_id INT PRIMARY KEY IDENTITY(1,1),
-    customer_name NVARCHAR(255), -- Tên khách hàng nếu không có tài khoản
-    --customer_id INT FOREIGN KEY REFERENCES Customer(customer_id), -- Liên kết với bảng khách hàng (nếu có)
     total_amount FLOAT, -- Tổng tiền thanh toán
     purchase_time NVARCHAR(19) DEFAULT CONVERT(NVARCHAR, GETDATE(), 120), -- Thời gian thanh toán
     employee_id INT FOREIGN KEY REFERENCES Employee(employee_id), -- Nhân viên thực hiện giao dịch
-	ticket_id INT FOREIGN KEY REFERENCES Ticket(ticket_id) -- Liên kết với bảng vé
 );
 
---ALTER TABLE Invoice
---DROP COLUMN customer_id;
-
-
----- Xóa cột ticket_id
---ALTER TABLE Invoice
---DROP COLUMN ticket_id;
 
 CREATE TABLE InvoiceDetail (
     invoice_id INT, -- Liên kết với bảng hóa đơn

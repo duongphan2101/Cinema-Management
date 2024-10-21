@@ -81,8 +81,8 @@ public class main_nv extends JFrame implements ActionListener {
 		setMinimumSize(new Dimension(700, 500));
 
 		head = new JPanel();
-		head.setBorder(new EmptyBorder(0, 50, 0, 40));
-		head.setBackground(backGround_Color.bg_color);
+		head.setBorder(new EmptyBorder(10, 50, 10, 40));
+		head.setBackground(backGround_Color.bg_color_deep);
 		head.setPreferredSize(new Dimension(getWidth(), 100));
 		contentPane.add(head, BorderLayout.NORTH);
 		head.setLayout(new BorderLayout(0, 0));

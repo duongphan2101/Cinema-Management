@@ -5,6 +5,7 @@ import javax.swing.*;
 import enities.CurrentEmp;
 import ui.CinemaLogin;
 import ui.Infor_employee;
+import ui.frm_DoiMatKhau;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -47,7 +48,8 @@ public class PopupMenu {
         itemDoiMatKhau.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Chức năng đổi mật khẩu");
+                frm_DoiMatKhau frm = new frm_DoiMatKhau();
+                frm.setVisible(true);
             }
         });
 
