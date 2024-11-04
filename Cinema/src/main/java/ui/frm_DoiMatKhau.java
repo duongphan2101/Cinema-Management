@@ -53,7 +53,7 @@ public class frm_DoiMatKhau extends JFrame {
 	 */
 	public frm_DoiMatKhau() {
 		setType(Type.UTILITY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 500, 350);
 		contentPane = new JPanel();
 		setResizable(false);

@@ -21,6 +21,14 @@ public class Showtime {
 		this.startTime = startTime;
 	}
 
+	public Showtime(Movie movie, Theater theater, String showDate, String startTime) {
+		super();
+		this.movie = movie;
+		this.theater = theater;
+		this.showDate = showDate;
+		this.startTime = startTime;
+	}
+
 	public Showtime(int showtimeId) {
 		super();
 		this.showtimeId = showtimeId;

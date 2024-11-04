@@ -246,7 +246,7 @@ public class frm_editMoive extends JFrame {
 			String ngay = txtNgay.getText();
 			DAO_Movie dao = new DAO_Movie();
 			int status = movie.getMovieStatus().getStatusId();
-			Movie e = new Movie(0, ten, loai, thoiLuong, ngay, daoDien, new MovieStatus(status), anh);
+			Movie e = new Movie(ten, loai, thoiLuong, ngay, daoDien, new MovieStatus(status), anh);
 			dao.updateMovie(e);
 			CustomOptionPane.showNotice("Thêm Thành Công");
 		} catch (Exception e) {

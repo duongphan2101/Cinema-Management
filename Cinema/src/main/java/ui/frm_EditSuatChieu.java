@@ -202,7 +202,7 @@ public class frm_EditSuatChieu extends JFrame {
 			
 			String date = txtNgay.getText();
 			String time = txtTimeStart.getSelectedItem().toString();
-			Showtime s = new Showtime(1, movie, theater, date, time);
+			Showtime s = new Showtime(movie, theater, date, time);
 			
 			daoShowTime.updateShowTime(s);;
 			

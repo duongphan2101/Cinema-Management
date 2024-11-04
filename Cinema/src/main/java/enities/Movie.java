@@ -33,6 +33,18 @@ public class Movie {
 		this.movieId = movieId;
 	}
 
+	public Movie(String title, String genre, int duration, String releaseDate, String director, MovieStatus movieStatus,
+			String img) {
+		super();
+		this.title = title;
+		this.genre = genre;
+		this.duration = duration;
+		this.releaseDate = releaseDate;
+		this.director = director;
+		this.movieStatus = movieStatus;
+		this.img = img;
+	}
+
 	public int getMovieId() {
 		return movieId;
 	}
