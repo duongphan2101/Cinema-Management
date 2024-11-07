@@ -149,7 +149,7 @@ public class frm_editMoive extends JFrame {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				control_Phim(linkIMG);
+				control_Phim(linkIMG, movie);
 				dispose();
 			}
 		});
@@ -237,7 +237,7 @@ public class frm_editMoive extends JFrame {
 		    }
 	}
 	
-	public void control_Phim(String anh) {
+	public void control_Phim(String anh, Movie m) {
 		try {
 			String ten = txtTenPhim.getText();
 			String daoDien = txtDaoDien.getText();
@@ -245,10 +245,10 @@ public class frm_editMoive extends JFrame {
 			String loai = txtGenre.getSelectedItem().toString();
 			String ngay = txtNgay.getText();
 			DAO_Movie dao = new DAO_Movie();
-			int status = movie.getMovieStatus().getStatusId();
-			Movie e = new Movie(ten, loai, thoiLuong, ngay, daoDien, new MovieStatus(status), anh);
+			int status = m.getMovieStatus().getStatusId();
+			Movie e = new Movie(m.getMovieId() ,ten, loai, thoiLuong, ngay, daoDien, new MovieStatus(status), anh);
 			dao.updateMovie(e);
-			CustomOptionPane.showNotice("Thêm Thành Công");
+			CustomOptionPane.showNotice("Sửa Thông Tin Phim Thành Công");
 		} catch (Exception e) {
 			CustomOptionPane.showMess("Sai định dạng!");
 		}
