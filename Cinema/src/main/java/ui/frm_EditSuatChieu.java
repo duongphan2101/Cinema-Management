@@ -146,7 +146,7 @@ public class frm_EditSuatChieu extends JFrame {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				control_Phim();
+				control_Phim(show);
 				dispose();
 			}
 		});
@@ -184,10 +184,9 @@ public class frm_EditSuatChieu extends JFrame {
 		lblNewLabel_3.setIcon(new ImageIcon(frm_EditSuatChieu.class.getResource("/icon/icons8-close-30.png")));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		btnXoa.add(lblNewLabel_3, BorderLayout.CENTER);
-		System.out.println(show.getShowtimeId());
 	}
 	
-	public void control_Phim() {
+	public void control_Phim(Showtime st) {
 		dao = new DAO_Movie();
 		daoTheater = new DAO_Theater();
 		daoShowTime = new DAO_ShowTime();
@@ -202,7 +201,7 @@ public class frm_EditSuatChieu extends JFrame {
 			
 			String date = txtNgay.getText();
 			String time = txtTimeStart.getSelectedItem().toString();
-			Showtime s = new Showtime(movie, theater, date, time);
+			Showtime s = new Showtime(st.getShowtimeId() , movie, theater, date, time);
 			
 			daoShowTime.updateShowTime(s);;
 			

@@ -209,12 +209,8 @@ public class DAO_Movie {
 	        ps.setString(6, movie.getImg());
 	        ps.setInt(7, movie.getMovieId());
 
-	        int rowsAffected = ps.executeUpdate();
-	        if (rowsAffected > 0) {
-	            CustomOptionPane.showMess("Cập Nhật Phim Thành Công");
-	        } else {
-	        	CustomOptionPane.showMess("Cập Nhật Phim Không Thành Công");
-	        }
+	        ps.executeUpdate();
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
